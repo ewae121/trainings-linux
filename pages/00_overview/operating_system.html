@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <title>Overview - Operating System</title>
+  </head>
+  <body>
+    <h1>Operating System</h1>
+      <p>An operating system (OS) is system software that manages computer hardware and software resources, and provides common services for computer programs. So most of devices use Operating System: Computers, CellPhone...</p>
+
+      <img src="Operating_system_placement.svg.png"></img>
+
+    <h1>Types of operating systems</h1>
+      <table>
+        <tr>
+          <td>
+            <b>Single-tasking and multi-tasking</b>
+          </td>
+
+          <td>
+            A single-tasking system can only run one program at a time, while a multi-tasking operating system allows more than one program to be running concurrently. This is achieved by time-sharing, where the available processor time is divided between multiple processes. These processes are each interrupted repeatedly in time slices by a task-scheduling subsystem of the operating system. Multi-tasking may be characterized in preemptive and cooperative types. In preemptive multitasking, the operating system slices the CPU time and dedicates a slot to each of the programs. Unix-like operating systems, such as Linux—as well as non-Unix-like, such as AmigaOS—support preemptive multitasking. Cooperative multitasking is achieved by relying on each process to provide time to the other processes in a defined manner. 16-bit versions of Microsoft Windows used cooperative multi-tasking; 32-bit versions of both Windows NT and Win9x used preemptive multi-tasking.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <b>Single- and multi-user</b>
+          </td>
+
+          <td>
+            Single-user operating systems have no facilities to distinguish users but may allow multiple programs to run in tandem.[8] A multi-user operating system extends the basic concept of multi-tasking with facilities that identify processes and resources, such as disk space, belonging to multiple users, and the system permits multiple users to interact with the system at the same time. Time-sharing operating systems schedule tasks for efficient use of the system and may also include accounting software for cost allocation of processor time, mass storage, printing, and other resources to multiple users.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <b>Distributed</b>
+          </td>
+          <td>
+            A distributed operating system manages a group of distinct, networked computers and makes them appear to be a single computer, as all computations are distributed (divided amongst the constituent computers).[9]
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <b>Embedded</b>
+          </td>
+
+          <td>
+            Embedded operating systems are designed to be used in embedded computer systems. They are designed to operate on small machines with less autonomy (e.g. PDAs). They are very compact and extremely efficient by design and are able to operate with a limited amount of resources. Windows CE and Minix 3 are some examples of embedded operating systems.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <b>Real-time</b>
+          </td>
+
+          <td>
+            A real-time operating system is an operating system that guarantees to process events or data by a specific moment in time. A real-time operating system may be single- or multi-tasking, but when multitasking, it uses specialized scheduling algorithms so that a deterministic nature of behavior is achieved. Such an event-driven system switches between tasks based on their priorities or external events, whereas time-sharing operating systems switch tasks based on clock interrupts.
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <b>Library</b>
+          </td>
+
+          <td>
+            A library operating system is one in which the services that a typical operating system provides, such as networking, are provided in the form of libraries and composed with the application and configuration code to construct a unikernel: a specialized, single address space, machine image that can be deployed to cloud or embedded environment
+          </td>
+        </tr>
+    </table>
+
+    <h1>Components</h1>
+      The components of an operating system all exist in order to make the different parts of a computer work together. All user software needs to go through the operating system in order to use any of the hardware, whether it be as simple as a mouse or keyboard or as complex as an Internet component.
+
+      <h2>Kernel</h2>
+        With the aid of firmware and device drivers, the kernel provides the most basic level of control over all of the computer's hardware devices. It manages memory access for programs in the RAM, it determines which programs get access to which hardware resources, it sets up or resets the CPU's operating states for optimal operation at all times, and it organizes the data for long-term non-volatile storage with file systems on such media as disks, tapes, flash memory, etc.
+      <img src="Kernel_Layout.svg.png"></img>
+
+      <h2>User Space</h2>
+        <p>The term user space (or userland) refers to all code that runs outside the operating system's kernel.[1] User space usually refers to the various programs and libraries that the operating system uses to interact with the kernel: software that performs input/output, manipulates file system objects, application software, etc.</p>
+
+        <p>Each user space process normally runs in its own virtual memory space, and, unless explicitly allowed, cannot access the memory of other processes. This is the basis for memory protection in today's mainstream operating systems, and a building block for privilege separation. A separate user mode can also be used to build efficient virtual machines – see Popek and Goldberg virtualization requirements. With enough privileges, processes can request the kernel to map part of another process's memory space to its own, as is the case for debuggers. Programs can also request shared memory regions with other processes, although other techniques are also available to allow inter-process communication.</p>
+
+    <h1>References:</h1>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Operating_system" target=_blank>Wikipedia - Operating System</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/User_space_and_kernel_space" target=_blank>Wikipedia - UserSpace / Kernel Space</a></li>
+    </ul>
+  </body>
+</html>
