@@ -1,0 +1,384 @@
+<html>
+  <head>
+    <title>Overview - Linux</title>
+  </head>
+  <body>
+    <h1>Linux</h1>
+      <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel. An operating system kernel first released on September 17, 1991, by Linus Torvalds. Linux is typically packaged as a Linux distribution, which includes the kernel and supporting system software and libraries, many of which are provided by the GNU Project.</p>
+
+    <h1>Design</h1>
+      <p>Many open source developers agree that the Linux kernel was not designed but rather evolved through natural selection. Torvalds considers that although the design of Unix served as a scaffolding, "Linux grew with a lot of mutations – and because the mutations were less than random, they were faster and more directed than alpha-particles in DNA."</p>
+      <img src="Linux_design.png"></img>
+
+  A Linux System generaly contains:
+  <ul>
+    <li><b>A bootloader</b>, for example GNU GRUB, LILO, SYSLINUX or systemd-boot. This is a program that loads the Linux kernel into the computer's main memory, by being executed by the computer when it is turned on and after the firmware initialization is performed.</li>
+    <li><b>An init program</b>, such as the traditional sysvinit and the newer systemd, OpenRC and Upstart. This is the first process launched by the Linux kernel, and is at the root of the process tree: in other terms, all processes are launched through init. It starts processes such as system services and login prompts (whether graphical or in terminal mode).</li>
+    <li><b>Software libraries</b>, which contain code that can be used by running processes. On Linux systems using ELF-format executable files, the dynamic linker that manages the use of dynamic libraries is known as ld-linux.so. If the system is set up for the user to compile software themselves, header files will also be included to describe the programming interface of installed libraries. Besides the most commonly used software library on Linux systems, the GNU C Library (glibc), there are numerous other libraries, such as SDL and Mesa.</li>
+    <li><b>C standard library</b> is the library needed to run C programs on a computer system, with the GNU C Library being the standard. For embedded systems, alternatives such as the musl, EGLIBC (a glibc fork once used by Debian) and uClibc (which was designed for uClinux) have been developed, although the last two are no longer maintained. Android uses its own C library, Bionic.</li>
+    <li><b>Basic Unix commands</b>, with GNU coreutils being the standard implementation. Alternatives exist for embedded systems, such as the copyleft BusyBox, and the BSD-licensed Toybox.</li>
+    <li><b>Widget toolkits</b> are the libraries used to build graphical user interfaces (GUIs) for software applications. Numerous widget toolkits are available, including GTK and Clutter developed by the GNOME Project, Qt developed by the Qt Project and led by The Qt Company, and Enlightenment Foundation Libraries (EFL) developed primarily by the Enlightenment team.</li>
+    <li><b>A package management system</b>, such as dpkg and RPM. Alternatively packages can be compiled from binary or source tarballs.</li>
+    <li><b>User interface programs</b> such as command shells or windowing environments.</li>
+  <ul>
+
+  <h1>Linux Manpages</h1>
+A man page (short for manual page) is a form of software documentation usually found on a Unix or Unix-like operating system. Topics covered include computer programs (including library and system calls), formal standards and conventions, and even abstract concepts. A user may invoke a man page by issuing the man command.
+
+  <h1>Linux Filesystem</h1>
+
+  <a href="https://en.wikipedia.org/wiki/Everything_is_a_file">Everything is a file.</a>
+
+  <h2>File pathes</h2>
+
+  A Linux file path indicates where to find a path. 
+
+  <p>Example: /usr/sbin/ip</p>
+  <ul>
+    <li><b>ip</b> is the basename</li> 
+  </ul>
+
+  <p>When a path <b>start by a "/"</b>, it is an <b>Absolute path</b>. Otherwise it is a <b>Relative path</b>.</p>A relative path is always related to the current working directory (generally: .)
+
+  <p>Some special folders:</p>
+
+<table class="wikitable" summary="Special values.">
+
+<tbody><tr>
+<th>Directory</th>
+<th>Description</th></tr>
+<tr>
+<td>
+<dl><dd><code>.</code></dd></dl>
+</td>
+<td>Current folder
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>..</code></dd></dl>
+</td>
+<td>Parent folder
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>~</code></dd></dl>
+</td>
+<td>User Home folder
+</td></tr>
+</table>
+
+
+  <h2>Filesystem Hierachy Standard</h2>
+
+The Filesystem Hierarchy Standard (FHS) is a reference describing the conventions used for the layout of a UNIX system. It has been made popular by its use in Linux distributions, but it is used by other UNIX variants as well. It is maintained by the Linux Foundation. The latest version is 3.0, released on 3 June 2015.
+
+<table class="wikitable" summary="A description of the hierarchy specified in the FHS.">
+
+<tbody><tr>
+<th>Directory</th>
+<th>Description</th></tr>
+<tr>
+<td>
+<dl><dd><code>/</code></dd></dl>
+</td>
+<td><i>Primary hierarchy</i> root and <b>root directory</b> of the entire file system hierarchy.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/bin</code></dd></dl>
+</td>
+<td>Essential command <b>binaries</b> that need to be available in <b>single-user mode</b>, including to bring up the system or repair it, for all users (e.g., cat, ls, cp).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/boot</code></dd></dl>
+</td>
+<td>Boot loader files (e.g., kernels, initrd).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/dev</code></dd></dl>
+</td>
+<td>Device files (e.g., <code>/dev/null</code>, <code>/dev/disk0</code>,  <code>/dev/sda1</code>, <code>/dev/tty</code>, <code>/dev/random</code>).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/etc</code></dd></dl>
+</td>
+<td>Host-specific system-wide configuration files.<br/>
+<p>There has been controversy over the meaning of the name itself. In early versions of the UNIX Implementation Document from Bell labs, <code>/etc</code> is referred to as the <i>etcetera directory</i>, as this directory historically held everything that did not belong elsewhere (however, the FHS restricts <code>/etc</code> to static configuration files and may not contain binaries). Since the publication of early documentation, the directory name has been re-explained in various ways. Recent interpretations include backronyms such as "Editable Text Configuration" or "Extended Tool Chest".
+</p>
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/etc/opt</code></dd></dl></dd></dl>
+</td>
+<td>Configuration files for add-on packages stored in <code>/opt</code>.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/etc/X11</code></dd></dl></dd></dl>
+</td>
+<td>Configuration files for the X Window System, version 11.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/home</code></dd></dl>
+</td>
+<td>Users' home directories, containing saved files, personal settings, etc.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/lib</code></dd></dl>
+</td>
+<td>Libraries essential for the binaries in <code>/bin</code> and <code>/sbin</code>.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/lib&lt;qual&gt;</code></dd></dl>
+</td>
+<td>Alternate format essential libraries. These are typically used on systems that support more than one executable code format, such as systems supporting 32-bit and 64-bit versions of an instruction set.  Such directories are optional, but if they exist, they have some requirements.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/media</code></dd></dl>
+</td>
+<td>Mount points for removable media such as CD-ROMs (appeared in FHS-2.3 in 2004).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/mnt</code></dd></dl>
+</td>
+<td>Temporarily mounted filesystems.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/opt</code></dd></dl>
+</td>
+<td>Add-on application software packages.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/proc</code></dd></dl>
+</td>
+<td>Virtual filesystem providing process and kernel information as files. In Linux, corresponds to a procfs mount. Generally, automatically generated and populated by the system, on the fly.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/root</code></dd></dl>
+</td>
+<td>Home directory for the root user.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/run</code></dd></dl>
+</td>
+<td>Run-time variable data: Information about the running system since last boot, e.g., currently logged-in users and running daemons. Files under this directory must be either removed or truncated at the beginning of the boot process, but this is not necessary on systems that provide this directory as a temporary filesystem (tmpfs).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/sbin</code></dd></dl>
+</td>
+<td>Essential system binaries (e.g., fsck, init, route).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/srv</code></dd></dl>
+</td>
+<td>Site-specific data served by this system, such as data and scripts for web servers, data offered by FTP servers, and repositories for version control systems (appeared in FHS-2.3 in 2004).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/sys</code></dd></dl>
+</td>
+<td>Contains information about devices, drivers, and some kernel features.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/tmp</code></dd></dl>
+</td>
+<td>Directory for temporary files. Often not preserved between system reboots and may be severely size-restricted.
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/usr</code></dd></dl>
+</td>
+<td><i>Secondary hierarchy</i> for read-only user data; contains the majority of user utilities and applications.  Should be shareable and read-only.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/bin</code></dd></dl></dd></dl>
+</td>
+<td>Non-essential command binaries (not needed in single-user mode); for all users.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/include</code></dd></dl></dd></dl>
+</td>
+<td>Standard include files.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/lib</code></dd></dl></dd></dl>
+</td>
+<td>Libraries for the binaries in <code>/usr/bin</code> and <code>/usr/sbin</code>.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/libexec</code></dd></dl></dd></dl>
+</td>
+<td>Binaries run by other programs that are not intended to be executed directly by users or shell scripts (optional).
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/lib&lt;qual&gt;</code></dd></dl></dd></dl>
+</td>
+<td>Alternative-format libraries (e.g., <code>/usr/lib32</code> for 32-bit libraries on a 64-bit machine (optional)).
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/local</code></dd></dl></dd></dl>
+</td>
+<td><i>Tertiary hierarchy</i> for local data, specific to this host. Typically has further subdirectories (e.g., <code>bin</code>, <code>lib</code>, <code>share</code>).
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/sbin</code></dd></dl></dd></dl>
+</td>
+<td>Non-essential system binaries (e.g., daemons for various network services).
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/share</code></dd></dl></dd></dl>
+</td>
+<td>Architecture-independent (shared) data.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/usr/src</code></dd></dl></dd></dl>
+</td>
+<td>Source code (e.g., the kernel source code with its header files).
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>/var</code></dd></dl>
+</td>
+<td>Variable files: files whose content is expected to continually change during normal operation of the system, such as logs, spool files, and temporary e-mail files.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/cache</code></dd></dl></dd></dl>
+</td>
+<td>Application cache data. Such data are locally generated as a result of time-consuming I/O or calculation. The application must be able to regenerate or restore the data. The cached files can be deleted without loss of data.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/lib</code></dd></dl></dd></dl>
+</td>
+<td>State information. Persistent data modified by programs as they run (e.g., databases, packaging system metadata, etc.).
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/lock</code></dd></dl></dd></dl>
+</td>
+<td>Lock files. Files keeping track of resources currently in use.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/log</code></dd></dl></dd></dl>
+</td>
+<td>Log files. Various logs.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/mail</code></dd></dl></dd></dl>
+</td>
+<td>Mailbox files. In some distributions, these files may be located in the deprecated <code>/var/spool/mail</code>.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/opt</code></dd></dl></dd></dl>
+</td>
+<td>Variable data from add-on packages that are stored in <code>/opt</code>.
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/run</code></dd></dl></dd></dl>
+</td>
+<td>Run-time variable data. This directory contains system information data describing the system since it was booted.<br />
+<p>In FHS 3.0, <code>/var/run</code> is replaced by <code>/run</code>; a system should either continue to provide a <code>/var/run</code> directory or provide a symbolic link from <code>/var/run</code> to <code>/run</code> for backwards compatibility.
+</p>
+</td></tr>
+<tr>
+<td>
+<dl><dd><dl><dd><code>/var/tmp</code></dd></dl></dd></dl>
+</td>
+<td>Temporary files to be preserved between reboots.
+</td></tr></tbody></table>
+
+  <h2>Main commands to navigate</h2>
+<table class="wikitable" summary="A description of the hierarchy specified in the FHS.">
+
+<tbody><tr>
+<th>commands</th>
+<th>Description</th></tr>
+<tr>
+<td>
+<dl><dd><code>ls</code></dd></dl>
+</td>
+<td><i>List directory</i> display the content of the current folder.<ul><li><b>-a</b>: display hidden files and folders.</li><li><b>-l</b>: listing display</li><li><b>-t</b>: sort by time</li></ul>
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>cd</code></dd></dl>
+</td>
+<td><i>Change directory</i> move to the requested folder path.<ul><li><b>(empty)</b>: move to the home directory.</li><li><b>-</b>: move to the last directory.</li></ul>
+</td></tr>
+<td>
+<dl><dd><code>pwd</code></dd></dl>
+</td>
+<td><i>print name of current/working directory</i>
+</td></tr>
+</tbody>
+</table>
+
+<h1>Mount points</h1>
+  <p>All files accessible in a Unix system are arranged in one big tree, the file hierarchy, rooted at /. These files can be spread out over several devices. The mount command serves to attach the filesystem found on some device to the big file tree. Conversely, the umount(8) command will detach it again.</p>
+  <p>The filesystem is used to control how data is stored on the device or provided in a virtual way by network or other services.</p>
+
+  <h2>Commands to get information</h2>
+<table class="wikitable" summary="A description of the hierarchy specified in the FHS.">
+
+<tbody><tr>
+<th>commands</th>
+<th>Description</th></tr>
+<tr>
+<td>
+<dl><dd><code>mount</code></dd></dl>
+</td>
+<td><i>List mounting point.</i> Informations are also available in /proc/mounts<ul><li><b>-l</b>: display mounting point.</li><li><b>-l -t <i>type</i></b>: list the mount points with the specified type</li><li><b>-a</b>: mount all mount points listed in <i>/etc/fstab</i>.</li></ul>
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>df</code></dd></dl>
+</td>
+<td><i>Disk free</i> move to the requested folder path.<ul><li><b>(empty)</b>: move to the home directory.</li><li><b>-</b>: move to the last directory.</li></ul>
+</td></tr>
+<td>
+<dl><dd><code>pwd</code></dd></dl>
+</td>
+<td><i>print name of current/working directory</i>
+</td></tr>
+</tbody>
+</table>
+
+
+  <h1>References:</h1>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Linux" target=_blank>Wikipedia - Linux</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" target=_blank>Wikipedia - Filesystem Hierarchy Standard</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Everything_is_a_file" target=_blank>Wikipedia - Everything is a file</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Man_page" target=_blank>Wikipedia - Man page</a></li>
+    </ul>
+  </body>
+</html>
