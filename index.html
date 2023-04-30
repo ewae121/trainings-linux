@@ -90,11 +90,11 @@
             </div>
           </section>
 				  <section>
-            <a href="pages/linux_intro/linux.html" target="_blank">Linux content</a>
+            <a href="pages/linux_intro/linux.html" target="_blank">Linux main elements</a>
             <p><ul>
-              <li class="fragment fade-in">A Bootloader as GNU GRUB, LILO, SYSLINUX</li>
-              <li class="fragment fade-in">An init program as sysvinit, systemd, upstart</li>
-              <li class="fragment fade-in">Package management system as tarballs, rpm or dpkg</li>
+              <li class="fragment fade-in">The Bootloader as GNU GRUB, LILO, SYSLINUX</li>
+              <li class="fragment fade-in">The init program as sysvinit, systemd, upstart</li>
+              <li class="fragment fade-in">The Package management system as tarballs, rpm or dpkg</li>
               <li class="fragment fade-in">Software libraries, CStandard library</li>
               <li class="fragment fade-in">Basic Unix commands</li>
               <li class="fragment fade-in">User interface programs</li>
@@ -156,6 +156,68 @@
 
             <div class="r-stack">
               <img src="pages/linux_distributions/sc_kodi.png"></img>
+            </div>
+          </section>
+        </section>
+
+				<section>
+				  <section>
+            <h2><a href="pages/linux_documentation/documentation.html" target="_blank">Linux documentation</a></h2>
+          </section>
+				  <section>
+            <a href="pages/linux_documentation/documentation.html" target="_blank">What to know about documentation</a>
+            <p class="fragment fade-in">Linux is extremly well documented in most of cases.</p>
+            <p class="fragment fade-in">The documentation is available with the man command. "Man" stand for "Manual".</p>
+            <p class="fragment fade-in">Manpages are located in the folder: /usr/share/man in ubuntu.</p>
+            <p class="fragment fade-in">To save the planet please use the <b>man command</b> rather than Google searches</p>
+          </section>
+				  <section>
+            <a href="pages/linux_documentation/documentation.html" target="_blank">"man" command examples</a>
+            <div class="r-fit-text">
+            <table>
+              <tr><td><b>ls man page:</b></td><td><code>man ls</code></td></tr>
+              <tr><td><b>string man page (section 3):</b></td><td><code>man 3 string</code></td></tr>
+              <tr><td><b>intro man pages (all sections):</b></td><td><code>man -a intro</code></td></tr>
+              <tr><td><b>all man pages containing printf in short description:</b></td><td><code>man -k printf</code><tr/>
+            </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_documentation/documentation.html" target="_blank">"whatis" command examples</a>
+            <div class="r-fit-text">
+            <table>
+              <tr><td><b>all available passwd man pages:</b></td><td><code>whatis passwd</code></td></tr>
+              <tr><td><b>all available pass* man pages:</b></td><td><code>whatis -w pass*</code></td></tr>
+            </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_documentation/documentation.html" target="_blank">Navigate in manpages</a>
+            <div class="r-fit-text">
+            <table>
+              <tr><td>"q"</td><td>to quit the manual</td></tr>
+              <tr><td>"g"</td><td>Go to the top of the manual</td></tr>
+              <tr><td>"G"</td><td>Go to the end of the manual</td></tr>
+              <tr><td>"/"</td><td>Regex to find then navigate with <b>"n"</b> to next element and <b>"N"</b> to the previous element.</td></tr>
+            </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_documentation/documentation.html" target="_blank">Manpages sections</a>
+            <div class="r-fit-text">
+            <table>
+              <tbody>
+                <tr><th>Section</th><th>Description</th><th>example</th></tr>
+                <tr><td>1</td><td>General commands</td><td>man ls</td></tr>
+                <tr><td>2</td><td>System calls</td><td>man 2 fork</td></tr>
+                <tr><td>3</td><td>functions, covering in particular the C standard library</td><td>man 3 string</td></tr>
+                <tr><td>4</td><td>Special files (usually devices, those found in /dev) and drivers</td><td>man 4 tty</td></tr>
+                <tr><td>5</td><td>File formats and conventions</td><td>man 5 passwd</td></tr>
+                <tr><td>6</td><td>Games and screensavers</td><td>man 6 kpat</td></tr>
+                <tr><td>7</td><td>Miscellaneous</td><td>man 7 inode</td></tr>
+                <tr><td>8</td><td>System administration commands and daemons</td><td>man 8 ld.so</td></tr>
+              </tbody>
+            </table>
             </div>
           </section>
         </section>

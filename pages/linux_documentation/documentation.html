@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>Linux Documentation</title>
+  </head>
+  <body>
+
+  <h1>Linux Documentation</h1>
+
+  <p>Linux is extremly well documented generally. This documentation is written by contributors. As the code is Open source it is easy to check if the documentation is correct. For most of Posix commands, the manual pages are precises.</p>
+
+  <p>The documentation is available with the <b>man command</b>. "Man" stand for "Manual".</p>
+
+  <h2>Linux Manpages</h2>
+  <p>A man page (short for manual page) is a form of software documentation usually found on a Unix or Unix-like operating system. Topics covered include computer programs (including library and system calls), formal standards and conventions, and even abstract concepts. A user may invoke a man page by issuing the man command.</p>
+
+  <p>You can see a Man page using the <code>man</code> command as following: <code>man [options] [[section] page ...]</code></p>
+
+  <p><b>Manpages are located in the folder: /usr/share/man</b> in ubuntu.</p>
+
+  <p>For Alex Wissner-Gross(Harvard), a Google request emit 7 g of CO₂. 10 Google searches emit more than a mile with a scooter(62 g). So please man page installed localy thanks to man command instead of using Google to find them.</p>
+
+  <h2>Help commands</h2>
+
+    <h3>Man command usage example</h3>
+    <table>
+      <tr><td>See the <b>ls man page</b></td><td><code>man ls</code></td></tr>
+      <tr><td>See the <b>string man page in the section 3</b></td><td><code>man 3 string</code></td></tr>
+      <tr><td>See the <b>intro man page in all man sections</b></td><td><code>man -a intro</code></td></tr>
+      <tr><td>See <b>all man pages containing printf in short description</b></td><td><code>man -k printf</code><tr/>
+    </table>
+
+    <h3>Whatis command usage example</h3>
+    <table>
+      <tr><td>See the <b>available passwd commands</b></td><td>
+        <pre>
+          $ whatis passwd
+          passwd (5)           - fichier des mots de passe
+          passwd (1)           - Modifier le mot de passe d'un utilisateur
+          passwd (1ssl)        - OpenSSL application commands
+        </pre></td></tr>
+      <tr><td>See the <b>available pass* commands</b></td><td>
+        <pre>
+          $ whatis -w pass*
+          passwd (1)           - Modifier le mot de passe d'un utilisateur
+          passwd (5)           - fichier des mots de passe
+          passphrase-encoding (7ssl) - How diverse parts of OpenSSL treat pass phrases character encoding
+          passwd (1ssl)        - OpenSSL application commands
+          passwd2des (3)       - RFS password encryption
+        </pre></td></tr>
+    </table>
+
+    <h3>Get man chapter information</h3>
+    <table>
+      <tr><td>See the <b>available pass* commands</b></td><td>
+        <pre>
+          $ man passwd | grep -A 2 'SYNOPSIS'
+          SYNOPSIS
+              passwd [options] [LOGIN]
+        </pre></td></tr>
+    </table>
+  
+  <h2>Navigate in man pages</h2>
+    <table>
+      <tr><td>"q"</td><td>to quit the manual</td></tr>
+      <tr><td>"g"</td><td>Go to the top of the manual</td></tr>
+      <tr><td>"G"</td><td>Go to the end of the manual</td></tr>
+      <tr><td>"/"</td><td>Regex to find then navigate with <b>"n"</b> to next element and <b>"N"</b> to the previous element.</td></tr>
+    </table>
+
+  <h2>Man page sections</h2>
+  <table>
+    <tbody>
+      <tr><th>Section</th><th>Description</th><th>example</th></tr>
+      <tr><td>1</td><td>General commands</td><td>man ls</td></tr>
+      <tr><td>2</td><td>System calls</td><td>man 2 fork</td></tr>
+      <tr><td>3</td><td>functions, covering in particular the C standard library</td><td>man 3 string</td></tr>
+      <tr><td>4</td><td>Special files (usually devices, those found in /dev) and drivers</td><td>man 4 tty</td></tr>
+      <tr><td>5</td><td>File formats and conventions</td><td>man 5 passwd</td></tr>
+      <tr><td>6</td><td>Games and screensavers</td><td>man 6 kpat</td></tr>
+      <tr><td>7</td><td>Miscellaneous</td><td>man 7 inode</td></tr>
+      <tr><td>8</td><td>System administration commands and daemons</td><td>man 8 ld.so</td></tr>
+    </tbody>
+  </table>
+
+  <p>POSIX system calls are often present in both sections 2 and 3, where section 2 contains the system call's documentation from the local operating system and section 3 contains the system call's documentation from the POSIX Programmer's Manual.</p>
+  <p>Unix System V uses a similar numbering scheme, except in a different order(see wikipedia for details).</p>
+    
+  <h1>References:</h1>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Man_page" target=_blank>Wikipedia - Man page</a></li>
+      <li>command: <code>man man</code></li>
+    </ul>
+  </body>
+</html>
