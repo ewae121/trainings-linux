@@ -1,0 +1,391 @@
+<html>
+  <head>
+    <title>File System</title>
+  </head>
+  <body>
+
+  <h1>Data Storage devices types in linux</h1>
+
+  <p>Linux Data storage can be hard drive, floppy disk, SCSI drive, optical drive, USB Keys. All of them are block devices in /dev.</p>
+
+  <table>
+    <tr><td>NVMe Controllers</td><td>PCI express controller</td><td>Examples: PIC express drives</td></tr>
+    <tr><td>SCSI Controllers</td><td>First controller /dev/sda, then /dev/sdb, /dev/sdc, /dev/sdd...</td><td>Examples: hard drives, usb keys</td></tr>
+    <tr><td>MMC Controllers</td><td>First controller /dev/immcblk0, then /dev/mmcblk1...</td><td>Examples: internal MMC memory</td></tr>
+    <tr><td>IDE Controllers</td><td>Primary controller /dev/hda, Secondary controller /dev/hdb</td><td>Examples: old hard Drive, CDROM drives</td></tr>
+    <tr><td>Floppy disk Controllers</td><td>First controller /dev/fd0, then /dev/fd1</td><td>Examples: floppy disks</td></tr>
+  <table>
+
+  <h1>Partitions</h1>
+  <p>All those devices can be divided into partitions. They will be named differently depending the device type:</p>
+  <ul>
+    <li>for the SATA disk 0 /dev/sda, it will be /dev/sda1, /dev/sda2...</li>
+    <li>for IDE disks, it will be /dev/hda1, /dev/hdb1...</li>
+    <li>for NVME disk /dev/nvme0n1, it will be /dev/nvme0n1p1, /dev/nvme0n1p2...</li>
+  </ul>
+  <img src="partitions_kde.png"></img>
+
+  To get informations about all devices you can use the lsblk command:
+  <pre>
+e---@pluton:~/dev/trainings/linux/pages/linux_filesystem$ lsblk -T -f /dev/nvme0n1
+NAME        FSTYPE FSVER LABEL      UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+nvme0n1                                                                                 
+├─nvme0n1p1 vfat   FAT32 SYSTEM_DRV 948D-8E86                             222,6M    13% /boot/efi
+├─nvme0n1p2                                                                             
+├─nvme0n1p3 ntfs                    4004C09704C09178                                    
+├─nvme0n1p4 ntfs         WINRE_DRV  463A8E953A8E8223                                    
+├─nvme0n1p5 ext4   1.0              2c2727a7-7b03-4c50-b4bf-8f1a5d26ecb0    5,8G    75% /var/snap/firefox/common/host-hunspell
+│                                                                                       /
+└─nvme0n1p6 ext4   1.0              f1447f37-47d6-44d1-80d5-08df7a27c356   14,4G    89% /home
+  </pre>
+
+  or fdisk:
+
+  <pre>
+e---@pluton:~/dev/trainings/linux/pages/linux_filesystem$ sudo fdisk -l
+Disk /dev/nvme0n1: 476,94 GiB, 512110190592 bytes, 1000215216 sectors
+Disk model: SAMSUNG MZVLB512HAJQ-000L2              
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 6A872365-FA9C-4F7D-87F9-4ACD391EB6A5
+
+Device             Start        End   Sectors   Size Type
+/dev/nvme0n1p1      2048     534527    532480   260M EFI System
+/dev/nvme0n1p2    534528     567295     32768    16M Microsoft reserved
+/dev/nvme0n1p3    567296  383766527 383199232 182,7G Microsoft basic data
+/dev/nvme0n1p4 998166528 1000214527   2048000  1000M Windows recovery environment
+/dev/nvme0n1p5 383766528  445206527  61440000  29,3G Linux filesystem
+/dev/nvme0n1p6 445206528  998166527 552960000 263,7G Linux filesystem
+  </pre>
+
+  <h2>Partition types</h2>
+There are three types of partitions with which you will be dealing; Primary, Extended, and Logical partitions.
+  <ul>
+    <li>The primary partition has a unique FS Type. It is often the main partition to boot an OS. You can have only 4 primary partitions. If you need more partitions you can create an extended partition.</li>
+    <li>The extended partition is simply a special partion that will contain logical partitions.</li>
+    <li>The logical partition is a sub division of the extended partition and will be detected as block devices in /dev. fdisk support 56 extended partitions.</li>
+  </ul>
+
+  <h1>File System</h1>
+
+<p>In computing, a file system or filesystem (often abbreviated to fs) is a method and data structure that the operating system uses to control how data is stored and retrieved. Without a file system, data placed in a storage medium would be one large body of data with no way to tell where one piece of data stopped and the next began, or where any piece of data was located when it was time to retrieve it. By separating the data into pieces and giving each piece a name, the data are easily isolated and identified. Taking its name from the way a paper-based data management system is named, each group of data is called a "file". The structure and logic rules used to manage the groups of data and their names is called a "file system."</p>
+
+<p>There are many kinds of file systems, each with unique structure and logic, properties of speed, flexibility, security, size and more. Some file systems have been designed to be used for specific applications. For example, the ISO 9660 and UDF file systems are designed specifically for optical discs.</p>
+
+<p>File systems can be used on many types of storage devices using various media. As of 2019, hard disk drives have been key storage devices and are projected to remain so for the foreseeable future. Other kinds of media that are used include SSDs, magnetic tapes, and optical discs. In some cases, such as with tmpfs, the computer's main memory (random-access memory, RAM) is used to create a temporary file system for short-term use.</p>
+
+<p>Some file systems are used on local data storage devices; others provide file access via a network protocol (for example, NFS, SMB, or 9P clients). Some file systems are "virtual", meaning that the supplied "files" (called virtual files) are computed on request (such as procfs and sysfs) or are merely a mapping into a different file system used as a backing store. The file system manages access to both the content of files and the metadata about those files. It is responsible for arranging storage space; reliability, efficiency, and tuning with regard to the physical storage medium are important design considerations.</p>
+
+  <h2>Main File System types</h2>
+      Reference: <a href="https://www.google.com/search?q=file+system+types&oq=file+system+types&aqs=chrome..69i57j0i19i512l9.7366j0j7&client=ubuntu-chr&sourceid=chrome&ie=UTF-8" target=_blank>Search google file types</a>
+
+    <h3>NTFS</h3>
+      <table>
+        <tr><th>Developer(s)</th><td>Microsoft</td></tr>
+        <tr><th>Full name</th><td>NT File System</td></tr>
+        <tr><th>Introduced</th><td>July 1993; 29 years ago with Windows NT 3.1</td></tr>
+        <tr><th>Max volume size</th><td>8 PB</td></tr>
+        <tr><th>Max file size</th><td>8 PB</td></tr>
+        <tr><th>Max number of file</th><td>2^32 - 1</td></tr>
+        <tr><th>Max file name length</th><td>255 UTF-16 units</td></tr>
+        <tr><th>Supported OS</th><td>Windows NT 3.1 and later</td></tr>
+        <tr><th></th><td>Mac OS X 10.3 and later (read-only)</td></tr>
+        <tr><th></th><td>Linux kernel version 2.6 and later</td></tr>
+        <tr><th></th><td>Linux kernel versions 2.2-2.4 (read-only)</td></tr>
+        <tr><th></th><td>FreeBSD, NetBSD, OpenBSD(read-only)</td></tr>
+        <tr><th></th><td>ChromeOS</td></tr>
+      </table>
+	
+      Reference: <a href="https://en.wikipedia.org/wiki/NTFS" target=_blank>Wikipedia NTFS</a>
+
+    <h3>ExFAT</h3>
+      <table>
+        <tr><th>Developer(s)</th><td>Microsoft</td></tr>
+        <tr><th>Full name</th><td>Extensible File Allocation Table</td></tr>
+        <tr><th>Introduced</th><td>November 2006; with Windows Embedded CE</td></tr>
+        <tr><th>Max volume size</th><td>128 PB</td></tr>
+        <tr><th>Max file size</th><td>128 PB</td></tr>
+        <tr><th>Max number of file</th><td>2,796,202</td></tr>
+        <tr><th>Max file name length</th><td>255 characters(unicode)</td></tr>
+        <tr><th>Supported OS</th><td>Windows CE 6.0, XP, Server 2003, Vista, 7, 8, 10, 11, Server 2008</td></tr>
+        <tr><th></th><td>Mac OS X 10.6.5 and later (read-only)</td></tr>
+        <tr><th></th><td>Linux kernel version 5.4 and later</td></tr>
+        <tr><th></th><td>Android 13</td></tr>
+      </table>
+	
+      Reference: <a href="https://en.wikipedia.org/wiki/ExFAT" target=_blank>Wikipedia ExFAT</a>
+
+    <h3>Ext2</h3>
+      <table>
+        <tr><th>Developer(s)</th><td>Rémy Card</td></tr>
+        <tr><th>Full name</th><td>Second extended file system</td></tr>
+        <tr><th>Introduced</th><td>January 1993; 29 years ago with Linux</td></tr>
+        <tr><th>Max volume size</th><td>2-32 TB</td></tr>
+        <tr><th>Max file size</th><td>16GB - 2TB </td></tr>
+        <tr><th>Max number of file</th><td>10^18</td></tr>
+        <tr><th>Max file name length</th><td>255 bytes</td></tr>
+        <tr><th>Supported OS</th><td>Linux</td></tr>
+        <tr><th></th><td>BSD</td></tr>
+        <tr><th></th><td>Mac OS X through an IFS</td></tr>
+        <tr><th></th><td>Windows through an IFS</td></tr>
+      </table>
+
+      <p>Ext2 is still recommended over journaling file systems on bootable USB flash drives and other solid-state drives. ext2 performs fewer writes than ext3 because there is no journaling.</p>
+	
+      Reference: <a href="https://en.wikipedia.org/wiki/Ext2" target=_blank>Wikipedia Ext2</a>
+
+    <h3>Ext4</h3>
+      <table>
+        <tr><th>Developer(s)</th><td>Mingming Cao, Andreas Dilger, Alex Zhuravlev (Tomas), Dave Kleikamp, Theodore Ts'o, Eric Sandeen, Sam Naghshineh, others</td></tr>
+        <tr><th>Full name</th><td>Fourth extended file system</td></tr>
+        <tr><th>Introduced</th><td>21 october 2008; Linux 2.6.28, 2.6.19</td></tr>
+        <tr><th>Max volume size</th><td>1 EB</td></tr>
+        <tr><th>Max file size</th><td>16TB </td></tr>
+        <tr><th>Max number of file</th><td>4 billion</td></tr>
+        <tr><th>Max file name length</th><td>255 bytes</td></tr>
+        <tr><th>Dates recorded</th><td>14 December 1901 - 10 May 2446</td></tr>
+        <tr><th>Date resolution</th><td>Nanosecond</td></tr>
+        <tr><th>Max file name length</th><td>255 bytes</td></tr>
+        <tr><th>Supported OS</th><td>Linux</td></tr>
+        <tr><th></th><td>FreeBSD</td></tr>
+        <tr><th></th><td>Mac OS X read only ext4fuse, full with ExtFS</td></tr>
+        <tr><th></th><td>Windows read/wriet without Journaling with ext2fsd</td></tr>
+      </table>
+
+      <h4>Features</h4>
+      <dl>
+        <dt>Large file system</dt>
+          <dd>The ext4 filesystem can support volumes with sizes in theory up to 64 zebibyte (ZiB) and single files with sizes up to 16 tebibytes (TiB) with the standard 4 KiB block size, and volumes with sizes up to 1 yobibyte (YiB) with 64 KiB clusters, though a limitation in the extent format makes 1 exbibyte (EiB) the practical limit. The maximum file, directory, and filesystem size limits grow at least proportionately with the filesystem block size up to the maximum 64 KiB block size available on ARM and PowerPC/Power ISA CPUs.</dd>
+        
+        <dt>Extents</dt>
+          <dd>Extents replace the traditional block mapping scheme used by ext2 and ext3. An extent is a range of contiguous physical blocks, improving large-file performance and reducing fragmentation. A single extent in ext4 can map up to 128MiB of contiguous space with a 4KiB block size. There can be four extents stored directly in the inode. When there are more than four extents to a file, the rest of the extents are indexed in a tree.</dd>
+        
+        <dt>Backward compatibility</dt>
+          <dd>ext4 is backward-compatible with ext3 and ext2, making it possible to mount ext3 and ext2 as ext4. This will slightly improve performance, because certain new features of the ext4 implementation can also be used with ext3 and ext2, such as the new block allocation algorithm, without affecting the on-disk format.</dd>
+          <dd>ext3 is partially forward-compatible with ext4. Practically, ext4 will not mount as an ext3 filesystem out of the box, unless certain new features are disabled when creating it, such as <code>^extent</code>, <code>^flex_bg</code>, <code>^huge_file</code>, <code>^uninit_bg</code>, <code>^dir_nlink</code>, and <code>^extra_isize</code>.</dd>
+        
+        <dt>Persistent pre-allocation</dt>
+          <dd>ext4 can pre-allocate on-disk space for a file. To do this on most file systems, zeroes would be written to the file when created. In ext4 (and some other file systems such as XFS) <code>fallocate()</code>, a new system call in the Linux kernel, can be used. The allocated space would be guaranteed and likely contiguous. This situation has applications for media streaming and databases.</dd>
+        
+        <dt>Delayed allocation</dt>
+          <dd>ext4 uses a performance technique called allocate-on-flush, also known as <i>delayed allocation</i>. That is, ext4 delays block allocation until data is flushed to disk; in contrast, some file systems allocate blocks immediately, even when the data goes into a write cache. Delayed allocation improves performance and reduces fragmentation by effectively allocating larger amounts of data at a time.</dd>
+
+        <dt>Unlimited number of subdirectories</dt>
+          <dd>ext4 does not limit the number of subdirectories in a single directory, except by the inherent size limit of the directory itself. (In ext3 a directory can have at most 32,000 subdirectories.) To allow for larger directories and continued performance, ext4 in Linux 2.6.23 and later turns on HTree indices (a specialized version of a B-tree) by default, which allows directories up to approximately 10–12 million entries to be stored in the 2-level HTree index and 2GB directory size limit for 4KiB block size, depending on the filename length. In Linux 4.12 and later the <code>largedir</code> feature enabled a 3-level HTree and directory sizes over 2GB, allowing approximately 6 billion entries in a single directory.</dd>
+
+        <dt>Journal checksums</dt>
+          <dd>ext4 uses checksums in the journal to improve reliability, since the journal is one of the most used files of the disk. This feature has a side benefit: it can safely avoid a disk I/O wait during journaling, improving performance slightly. Journal checksumming was inspired by a research article from the University of Wisconsin, titled <i>IRON File Systems</i> (specifically, section 6, called "transaction checksums"), with modifications within the implementation of compound transactions performed by the IRON file system (originally proposed by Sam Naghshineh in the RedHat summit).</dd>
+
+        <dt>Metadata checksumming</dt>
+          <dd>Since Linux kernel 3.5 released in 2012</dd>
+        
+        <dt>Faster file-system checking</dt>
+          <dd>In ext4 unallocated block groups and sections of the inode table are marked as such. This enables e2fsck to skip them entirely and greatly reduces the time it takes to check the file system. Linux 2.6.24 implements this feature.</dd></dl>
+
+      <dl>
+        <dt>Multiblock allocator</dt>
+          <dd>When ext3 appends to a file, it calls the block allocator, once for each block. Consequently, if there are multiple concurrent writers, files can easily become fragmented on disk. However, ext4 uses delayed allocation, which allows it to buffer data and allocate groups of blocks. Consequently, the multiblock allocator can make better choices about allocating files contiguously on disk. The multiblock allocator can also be used when files are opened in O_DIRECT mode. This feature does not affect the disk format.</dd>
+        <dt>Improved timestamps</dt>
+          <dd>As computers become faster in general, and as Linux becomes used more for mission-critical applications, the granularity of second-based timestamps becomes insufficient. To solve this, ext4 provides timestamps measured in nanoseconds. In addition, 2bits of the expanded timestamp field are added to the most significant bits of the seconds field of the timestamps to defer the year 2038 problem for an additional 408 years.</dd>
+          <dd>ext4 also adds support for time-of-creation timestamps. But, as Theodore Ts'o points out, while it is easy to add an extra creation-date field in the inode (thus technically enabling support for these timestamps in ext4), it is more difficult to modify or add the necessary system calls, like stat() (which would probably require a new version) and the various libraries that depend on them (like glibc). These changes will require coordination of many projects. Therefore, the creation date stored by ext4 is currently only available to user programs on Linux via the <code>statx()</code> API.</dd>
+
+        <dt>Project quotas</dt>
+          <dd>Support for project quotas was added in Linux kernel 4.4 on 8 Jan 2016. This feature allows assigning disk quota limits to a particular project ID. The project ID of a file is a 32-bit number stored on each file and is inherited by all files and subdirectories created beneath a parent directory with an assigned project ID. This allows assigning quota limits to a particular subdirectory tree independent of file access permissions on the file, such as user and project quotas that are dependent on the UID and GID. While this is similar to a directory quota, the main difference is that the same project ID can be assigned to multiple top-level directories and is not strictly hierarchical.</dd>
+
+        <dt>Transparent encryption</dt>
+          <dd>Support for transparent encryption was added in Linux kernel 4.1 on June 2015.</dd>
+
+        <dt>Lazy initialization</dt>
+          <dd>The lazyinit feature allows cleaning of inode tables in background, speeding initialization when creating a new ext4 file system. It is available since 2010 in Linux kernel version 2.6.37.</dd></dl>
+
+      <dl>
+        <dt>Write barriers</dt>
+          <dd>ext4 enables write barriers by default. It ensures that file system metadata is correctly written and ordered on disk, even when write caches lose power. This goes with a performance cost especially for applications that use fsync heavily or create and delete many small files. For disks with a battery-backed write cache, disabling barriers (option 'barrier=0') may safely improve performance.</dd></dl>
+
+    <h4>to summarize</h4>
+      Ext4 improve significantly performances but can expose to risk of data loss because of the technic of delayed allocation (in case of System crash or Loss power).
+	
+      Reference: <a href="https://en.wikipedia.org/wiki/Ext4" target=_blank>Wikipedia Ext4</a>
+
+    <h3>ISO 9660</h3>
+
+      ISO 9660 (also known as ECMA-119) is a file system for optical disc media. The file system is an international standard available from the International Organization for Standardization (ISO). Since the specification is available for anybody to purchase,[1] implementations have been written for many operating systems.
+
+      <table>
+        <tr><th>Developer(s)</th><td>ISO</td></tr>
+        <tr><th>Introduced</th><td>1988</td></tr>
+        <tr><th>Max volume size</th><td>8 TB</td></tr>
+        <tr><th>Supported OS</th><td>Cross Platform</td></tr>
+      </table>
+	
+      Reference: <a href="https://en.wikipedia.org/wiki/ISO_9660" target=_blank>Wikipedia ISO 9660</a>
+
+  <h2>Unix FS - Inode Concept</h2>
+    The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data. File-system object attributes may include metadata (times of last change, access, modification), as well as owner and permission data.
+
+    A directory is a list of inodes with their assigned names. The list includes an entry for itself, its parent, and each of its children.
+
+    <h3>Details</h3>
+      <p>A file system relies on data structures about the files, as opposed to the contents of that file. The former are called metadata—data that describes data. Each file is associated with an inode, which is identified by an integer, often referred to as an i-number or inode number.</p>
+
+      <p>Inodes store information about files and directories (folders), such as file ownership, access mode (read, write, execute permissions), and file type. On many older file system implementations, the maximum number of inodes is fixed at file system creation, limiting the maximum number of files the file system can hold. A typical allocation heuristic for inodes in a file system is one inode for every 2K bytes contained in the filesystem.</p>
+
+      <p>The <code>ls -i</code> command display the file system entry inode number. The inode is describe in the man section 7.</p>
+
+      <pre>
+ls -li *
+8931993 -rw-rw-r-- 1 ewae ewae   8652 avril 29 23:30 distributions.html
+8942840 -rw-rw-r-- 1 ewae ewae 399680 avril 29 23:28 linux_distribution_periodic_table.png
+8942841 -rw-rw-r-- 1 ewae ewae 403155 avril 29 23:28 sc_blackarch.png
+8942842 -rw-rw-r-- 1 ewae ewae 468109 avril 29 23:28 sc_kodi.png
+8942843 -rw-rw-r-- 1 ewae ewae 529713 avril 29 23:28 sc_kubuntu.png
+8942844 -rw-rw-r-- 1 ewae ewae 436569 avril 29 23:28 sc_mint.png
+      </pre>
+
+      <img src="Ext2-inode.png"></img>
+
+    <h3>POSIX inode description</h3>
+      <p>The POSIX standard mandates file-system behavior that is strongly influenced by traditional UNIX file systems. An inode is denoted by the phrase "file serial number", defined as a per-file system unique identifier for a file. That file serial number, together with the device ID of the device containing the file, uniquely identify the file within the whole system.</p>
+
+      <p>Within a POSIX system, a file has the following attributes which may be retrieved by the stat system call:</p>
+      <ul>
+        <li>Device ID (this identifies the device containing the file; that is, the scope of uniqueness of the serial number).</li>
+        <li>File serial numbers.</li>
+        <li>The file mode which determines the file type and how the file's owner, its group, and others can access the file.</li>
+        <li>A link count telling how many hard links point to the inode.</li>
+        <li>The User ID of the file's owner.</li>
+        <li>The Group ID of the file.</li>
+        <li>The device ID of the file if it is a device file.</li>
+        <li>The size of the file in bytes.</li>
+        <li>Timestamps telling when the inode itself was last modified (ctime, inode change time), the file content last modified (mtime, modification time), and last accessed (atime, access time).</li>
+        <li>The preferred I/O block size.</li>
+        <li>The number of blocks allocated to this file.</li>
+      </ul>
+
+    <h3>Implications</h3>
+      <p>Filesystems designed with inodes will have the following administrative characteristics:</p>
+
+      <ul>
+        <li>Files can have multiple names. If multiple names hard link to the same inode then the names are equivalent; i.e., the first to be created has no special status. This is unlike symbolic links, which depend on the original name, not the inode (number).</li>
+        <li>An inode may have no links. An unlinked file is removed from disk, and its resources are freed for reallocation but deletion must wait until all processes that have opened it finish accessing it. This includes executable files which are implicitly held open by the processes executing them.</li>
+        <li>It is typically not possible to map from an open file to the filename that was used to open it. The operating system immediately converts the filename to an inode number and then discards the filename. This means that the getcwd() and getwd() library functions search the parent directory to find a file with an inode matching the working directory, then search that directory's parent, and so on until reaching the root directory. SVR4 and Linux systems maintain extra information to make this possible.</li>
+        <li>Historically, it was possible to hard link directories. This made the directory structure an arbitrary directed graph contrary to a directed acyclic graph. It was even possible for a directory to be its own parent. Modern systems generally prohibit this confusing state, except that the parent of root is still defined as root. The most notable exception to this prohibition is found in Mac OS X (versions 10.5 and higher) which allows hard links of directories to be created by the superuser.[11]</li>
+        <li>A file's inode number stays the same when it is moved to another directory on the same device, or when the disk is defragmented which may change its physical location, allowing it to be moved and renamed even while being read from and written to without causing an interruption. This also implies that completely conforming inode behavior is impossible to implement with many non-Unix file systems, such as FAT and its descendants, which don't have a way of storing this invariance when both a file's directory entry and its data are moved around.</li>
+        <li>Installation of new libraries is simple with inode file systems. A running process can access a library file while another process replaces that file, creating a new inode, and an all-new mapping will exist for the new file so that subsequent attempts to access the library get the new version. This facility eliminates the need to reboot to replace currently mapped libraries.</li>
+        <li>It is possible for a device to run out of inodes. When this happens, new files cannot be created on the device, even though there may be free space available. This is most common for use cases like mail servers which contain many small files. File systems (such as JFS or XFS) escape this limitation with extents or dynamic inode allocation, which can "grow" the file system or increase the number of inodes.</li>
+      </ul>
+
+    <h3>Inlining</h3>
+      <p>It can make sense to store very small files in the inode itself to save both space (no data block needed) and lookup time (no further disk access needed). This file system feature is called inlining. The strict separation of inode and file data thus can no longer be assumed when using modern file systems.</p>
+      <p>If the data of a file fits in the space allocated for pointers to the data, this space can conveniently be used. For example, ext2 and its successors store the data of symlinks (typically file names) in this way if the data is no more than 60 bytes ("fast symbolic links").</p>
+      <p>Ext4 has a file system option called inline_data that allows ext4 to perform inlining if enabled during file system creation. Because an inode's size is limited, this only works for very small files.</p>
+
+<h1>Filesystem</h1>
+
+  <a href="https://en.wikipedia.org/wiki/Everything_is_a_file">Everything is a file.</a>
+
+  A Linux file path indicates where to find a path. 
+
+  <p>Example: /usr/sbin/ip</p>
+  <ul>
+    <li><b>ip</b> is the basename</li> 
+  </ul>
+
+  <p>When a path <b>start by a "/"</b>, it is an <b>Absolute path</b>. Otherwise it is a <b>Relative path</b>.</p>A relative path is always related to the current working directory (generally: .)
+
+  <p>Some special folders:</p>
+
+<table class="wikitable" summary="Special values.">
+
+<tbody><tr>
+<th>Directory</th>
+<th>Description</th></tr>
+<tr>
+<td>
+<dl><dd><code>.</code></dd></dl>
+</td>
+<td>Current folder
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>..</code></dd></dl>
+</td>
+<td>Parent folder
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>~</code></dd></dl>
+</td>
+<td>User Home folder
+</td></tr>
+</table>
+
+  <h1>Main commands to navigate</h1>
+<table class="wikitable" summary="A description of the hierarchy specified in the FHS.">
+
+<tbody><tr>
+<th>commands</th>
+<th>Description</th></tr>
+<tr>
+<td>
+<dl><dd><code>ls</code></dd></dl>
+</td>
+<td><i>List directory</i> display the content of the current folder.<ul><li><b>-a</b>: display hidden files and folders.</li><li><b>-l</b>: listing display</li><li><b>-t</b>: sort by time</li></ul>
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>cd</code></dd></dl>
+</td>
+<td><i>Change directory</i> move to the requested folder path.<ul><li><b>(empty)</b>: move to the home directory.</li><li><b>-</b>: move to the last directory.</li></ul>
+</td></tr>
+<td>
+<dl><dd><code>pwd</code></dd></dl>
+</td>
+<td><i>print name of current/working directory</i>
+</td></tr>
+</tbody>
+</table>
+
+<h1>Mount points</h1>
+  <p>All files accessible in a Unix system are arranged in one big tree, the file hierarchy, rooted at /. These files can be spread out over several devices. The mount command serves to attach the filesystem found on some device to the big file tree. Conversely, the umount(8) command will detach it again.</p>
+  <p>The filesystem is used to control how data is stored on the device or provided in a virtual way by network or other services.</p>
+
+  <h2>Commands to get information</h2>
+<table class="wikitable" summary="A description of the hierarchy specified in the FHS.">
+
+<tbody><tr>
+<th>commands</th>
+<th>Description</th></tr>
+<tr>
+<td>
+<dl><dd><code>mount</code></dd></dl>
+</td>
+<td><i>List mounting point.</i> Informations are also available in /proc/mounts<ul><li><b>-l</b>: display mounting point.</li><li><b>-l -t <i>type</i></b>: list the mount points with the specified type</li><li><b>-a</b>: mount all mount points listed in <i>/etc/fstab</i>.</li></ul>
+</td></tr>
+<tr>
+<td>
+<dl><dd><code>df</code></dd></dl>
+</td>
+<td><i>Disk free</i> move to the requested folder path.<ul><li><b>(empty)</b>: move to the home directory.</li><li><b>-</b>: move to the last directory.</li></ul>
+</td></tr>
+<td>
+<dl><dd><code>pwd</code></dd></dl>
+</td>
+<td><i>print name of current/working directory</i>
+</td></tr>
+</tbody>
+</table>
+
+
+  <h1>References:</h1>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/File_system" target=_blank>Wikipedia File system</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Inode" target=_blank>Wikipedia Inode</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Disk_partitioning" target=_blank>Wikipedia Disk Partitioning</a></li>
+      <li><a href="https://wiki.archlinux.org/title/Device_file" target=_blank>Device file</a></li>
+      <li><a href="https://opensource.com/article/17/5/introduction-ext4-filesystem" target=_blank>Introduction to Ext4 File system</a></li>
+    </ul>
+  </body>
+</html>
