@@ -23,11 +23,20 @@
     <li>for IDE disks, it will be /dev/hda1, /dev/hdb1...</li>
     <li>for NVME disk /dev/nvme0n1, it will be /dev/nvme0n1p1, /dev/nvme0n1p2...</li>
   </ul>
+
+  <h2>Partition types</h2>
+There are three types of partitions with which you will be dealing; Primary, Extended, and Logical partitions.
+  <ul>
+    <li>The primary partition has a unique FS Type. It is often the main partition to boot an OS. You can have only 4 primary partitions. If you need more partitions you can create an extended partition.</li>
+    <li>The extended partition is simply a special partion that will contain logical partitions.</li>
+    <li>The logical partition is a sub division of the extended partition and will be detected as block devices in /dev. fdisk support 56 extended partitions.</li>
+  </ul>
+
   <img src="partitions_kde.png"></img>
 
   To get informations about all devices you can use the lsblk command:
   <pre>
-e---@pluton:~/dev/trainings/linux/pages/linux_filesystem$ lsblk -T -f /dev/nvme0n1
+$ lsblk -T -f /dev/nvme0n1
 NAME        FSTYPE FSVER LABEL      UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
 nvme0n1                                                                                 
 ├─nvme0n1p1 vfat   FAT32 SYSTEM_DRV 948D-8E86                             222,6M    13% /boot/efi
@@ -42,7 +51,7 @@ nvme0n1
   or fdisk:
 
   <pre>
-e---@pluton:~/dev/trainings/linux/pages/linux_filesystem$ sudo fdisk -l
+$ sudo fdisk -l
 Disk /dev/nvme0n1: 476,94 GiB, 512110190592 bytes, 1000215216 sectors
 Disk model: SAMSUNG MZVLB512HAJQ-000L2              
 Units: sectors of 1 * 512 = 512 bytes
@@ -60,13 +69,73 @@ Device             Start        End   Sectors   Size Type
 /dev/nvme0n1p6 445206528  998166527 552960000 263,7G Linux filesystem
   </pre>
 
-  <h2>Partition types</h2>
-There are three types of partitions with which you will be dealing; Primary, Extended, and Logical partitions.
-  <ul>
-    <li>The primary partition has a unique FS Type. It is often the main partition to boot an OS. You can have only 4 primary partitions. If you need more partitions you can create an extended partition.</li>
-    <li>The extended partition is simply a special partion that will contain logical partitions.</li>
-    <li>The logical partition is a sub division of the extended partition and will be detected as block devices in /dev. fdisk support 56 extended partitions.</li>
-  </ul>
+  To get information about available space you can use the df command (Disk Free)
+
+  <pre>
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           768M  2,1M  765M   1% /run
+/dev/nvme0n1p5   29G   22G  5,7G  80% /
+tmpfs           3,8G  105M  3,7G   3% /dev/shm
+tmpfs           5,0M  4,0K  5,0M   1% /run/lock
+/dev/nvme0n1p6  259G  230G   17G  94% /home
+/dev/nvme0n1p1  256M   35M  222M  14% /boot/efi
+tmpfs           768M   72K  767M   1% /run/user/1000
+tmpfs           3,8G     0  3,8G   0% /run/qemu
+  </pre>
+
+  To consult the mounted filesystem you can use the mount command
+
+  <pre>
+$ mount | grep -v snapd
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=3866344k,nr_inodes=966586,mode=755,inode64)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,noexec,relatime,size=785436k,mode=755,inode64)
+/dev/nvme0n1p5 on / type ext4 (rw,relatime,errors=remount-ro)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,inode64)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k,inode64)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+efivarfs on /sys/firmware/efi/efivars type efivarfs (rw,nosuid,nodev,noexec,relatime)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=29,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=20578)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,pagesize=2M)
+mqueue on /dev/mqueue type mqueue (rw,nosuid,nodev,noexec,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,nosuid,nodev,noexec,relatime)
+tracefs on /sys/kernel/tracing type tracefs (rw,nosuid,nodev,noexec,relatime)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
+configfs on /sys/kernel/config type configfs (rw,nosuid,nodev,noexec,relatime)
+none on /run/credentials/systemd-sysusers.service type ramfs (ro,nosuid,nodev,noexec,relatime,mode=700)
+/dev/nvme0n1p5 on /var/snap/firefox/common/host-hunspell type ext4 (ro,noexec,noatime,errors=remount-ro)
+/dev/nvme0n1p6 on /home type ext4 (rw,relatime)
+/dev/nvme0n1p1 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=785432k,nr_inodes=196358,mode=700,uid=1000,gid=1000,inode64)
+portal on /run/user/1000/doc type fuse.portal (rw,nosuid,nodev,relatime,user_id=1000,group_id=1000)
+tmpfs on /run/qemu type tmpfs (rw,nosuid,nodev,relatime,mode=755,inode64)
+  </pre>
+
+  Mounted filesystem are declared in the /etc/fstab file. To get help: <code>man 5 fstab</code>
+  <pre>
+$ cat /etc/fstab 
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p5 during installation
+UUID=2c2727a7-7b03-4c50-b4bf-8f1a5d26ecb0 /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=948D-8E86  /boot/efi       vfat    umask=0077      0       1
+# /home was on /dev/nvme0n1p6 during installation
+UUID=f1447f37-47d6-44d1-80d5-08df7a27c356 /home           ext4    defaults        0       2
+/swapfile                                 none            swap    sw              0       0
+  </pre>
 
   <h1>File System</h1>
 
@@ -154,6 +223,9 @@ There are three types of partitions with which you will be dealing; Primary, Ext
         <tr><th></th><td>Windows read/wriet without Journaling with ext2fsd</td></tr>
       </table>
 
+      <strong>To sync all cached data use the "sync" command.</strong>
+
+
       <h4>Features</h4>
       <dl>
         <dt>Large file system</dt>
@@ -221,6 +293,29 @@ There are three types of partitions with which you will be dealing; Primary, Ext
       </table>
 	
       Reference: <a href="https://en.wikipedia.org/wiki/ISO_9660" target=_blank>Wikipedia ISO 9660</a>
+
+    <h3>tmpfs</h3>
+
+      <p>tmpfs (short for Temporary File System) is a temporary file storage paradigm implemented in many Unix-like operating systems. It is intended to appear as a mounted file system, but data is stored in volatile memory instead of a persistent storage device. A similar construction is a RAM disk, which appears as a virtual disk drive and hosts a disk file system.</p>
+      <h4>Advantages</h4>
+        <p>Due to the higher speeds of RAM compared to disk storage, tmpfs allows cache to be much faster when stored in one, leading to a more efficient overall system, though operating systems with a page cache will see less benefit as recently-used file pages will remain in-memory if free memory is sufficient. Since RAM is cleared upon reboot, tmpfs prevents systems from becoming too cluttered without requiring that the user manually deletes temporary files. In addition, storing files in RAM prevents disks from filling up too quickly and extends the life of solid-state drives by reducing the amount of writes.</p>
+
+      <h4>Disadvantages</h4>
+        <p>On systems without swap space, or where swap space is running low, tmpfs may consume large amounts of memory.</p>
+
+        <p>If cache files are stored in tmpfs, programs will lose their cached data across reboots.</p>
+	
+      Reference: <a href="https://en.wikipedia.org/wiki/Tmpfs" target=_blank>Wikipedia Tmpfs</a>
+
+
+    <h3>procfs</h3>
+
+    <p>The proc filesystem provides a method of communication between kernel space and user space. For example, the GNU version of the process reporting utility ps uses the proc file system to obtain its data, without using any specialized system calls.</p>
+
+    <p>It is a Virtual File System. Information are not present on a disk. They are built on-demand by requesting the kernel. It acts as an Interface to the kernel information.</p>
+	
+      Reference: <a href="https://en.wikipedia.org/wiki/Procfs" target=_blank>Wikipedia Procfs</a>
+
 
   <h2>Unix FS - Inode Concept</h2>
     The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data. File-system object attributes may include metadata (times of last change, access, modification), as well as owner and permission data.
