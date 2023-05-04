@@ -224,6 +224,100 @@
 
 				<section>
 				  <section>
+            <h2><a href="pages/linux_filesystem/fs.html" target="_blank">Linux file system</a></h2>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Data Storage devices</a>
+            <p>Linux Data storage can be hard drive, floppy disk, SCSI drive, optical drive, USB Keys. All of them are block devices in /dev.</p>
+            <div class="r-fit-text fragment fade-in">
+              <table>
+                <tr><td>NVMe Controllers</td><td>First controller nvme0 then Second controller nvme1...</td><td>PCI express controller</td></tr>
+                <tr><td>SCSI Controllers</td><td>First controller /dev/sda, then /dev/sdb, /dev/sdc, /dev/sdd...</td><td>Hard drives, usb keys</td></tr>
+                <tr><td>MMC Controllers</td><td>First controller /dev/mmcblk0, then /dev/mmcblk1...</td><td>internal MMC memory</td></tr>
+                <tr><td>IDE Controllers</td><td>Primary controller /dev/hda, Secondary controller /dev/hdb</td><td>IDE hard Drive, CDROM drives</td></tr>
+                <tr><td>Floppy disk Controllers</td><td>First controller /dev/fd0, then /dev/fd1</td><td>floppy disks</td></tr>
+              </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Storage devices Partioning</a>
+            <p>All those devices can be divided into partitions. They will be named differently depending the device type:</p>
+            <ul>
+              <li>for the SATA disk 0 /dev/sda, it will be /dev/sda1, /dev/sda2...</li>
+              <li>for IDE disks, it will be /dev/hda1, /dev/hdb1...</li>
+              <li>for NVME disk /dev/nvme0n1, it will be /dev/nvme0n1p1, /dev/nvme0n1p2...</li>
+            </ul>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Storage devices Partioning - GUI</a>
+
+            <div class="r-stack">
+              <img src="pages/linux_filesystem/partitions_kde.png"></img>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Block Device Information</a>
+
+            <div class="r-fit-text">
+            <p>The lsblk command:</p>
+  <pre>
+e---@pluton:~/dev/trainings/linux/pages/linux_filesystem$ lsblk -T -f /dev/nvme0n1
+  </pre>
+  <pre class="fragment fade-in">
+NAME        FSTYPE FSVER LABEL      UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+nvme0n1                                                                                 
+├─nvme0n1p1 vfat   FAT32 SYSTEM_DRV 948D-8E86                             222,6M    13% /boot/efi
+├─nvme0n1p2                                                                             
+├─nvme0n1p3 ntfs                    4004C09704C09178                                    
+├─nvme0n1p4 ntfs         WINRE_DRV  463A8E953A8E8223                                    
+├─nvme0n1p5 ext4   1.0              2c2727a7-7b03-4c50-b4bf-8f1a5d26ecb0    5,8G    75% /var/snap/firefox/common/host-hunspell
+│                                                                                       /
+└─nvme0n1p6 ext4   1.0              f1447f37-47d6-44d1-80d5-08df7a27c356   14,4G    89% /home
+  </pre>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Block Device Information</a>
+
+            <div class="r-fit-text">
+            <p>The fdisk command:</p>
+  <pre>
+e---@pluton:~/dev/trainings/linux/pages/linux_filesystem$ sudo fdisk -l
+  </pre>
+  <pre class="fragment fade-in">
+Disk /dev/nvme0n1: 476,94 GiB, 512110190592 bytes, 1000215216 sectors
+Disk model: SAMSUNG MZVLB512HAJQ-000L2              
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 6A872365-FA9C-4F7D-87F9-4ACD391EB6A5
+
+Device             Start        End   Sectors   Size Type
+/dev/nvme0n1p1      2048     534527    532480   260M EFI System
+/dev/nvme0n1p2    534528     567295     32768    16M Microsoft reserved
+/dev/nvme0n1p3    567296  383766527 383199232 182,7G Microsoft basic data
+/dev/nvme0n1p4 998166528 1000214527   2048000  1000M Windows recovery environment
+/dev/nvme0n1p5 383766528  445206527  61440000  29,3G Linux filesystem
+/dev/nvme0n1p6 445206528  998166527 552960000 263,7G Linux filesystem
+  </pre>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Partition types</a>
+            <div class="r-fit-text">
+            <p>There are three types of partitions with which you will be dealing; Primary, Extended, and Logical partitions.</p>
+            <ul>
+              <li class="fragment fade-in" >The primary partition has a unique FS Type. It is often the main partition to boot an OS. You can have only 4 primary partitions. If you need more partitions you can create an extended partition.</li>
+              <li class="fragment fade-in">The extended partition is simply a special partion that will contain logical partitions.</li>
+              <li class="fragment fade-in">The logical partition is a sub division of the extended partition and will be detected as block devices in /dev. fdisk support 56 extended partitions.</li>
+            </ul>
+            </div>
+          </section>
+        </section>
+
+				<section>
+				  <section>
             Overview
           </section>
 				  <section>
