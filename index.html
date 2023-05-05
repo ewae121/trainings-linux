@@ -399,6 +399,78 @@ tmpfs           3,8G     0  3,8G   0% /run/qemu
               <p class="fragment fade-in">You can use the <code>ps</code> command to access this data.</p>
             </div>
           </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Linux Volume Information</a>
+            <div class="r-fit-text">
+            <ul>
+              <li class="fragment fade-in">Linux volume are <strong>mounted</strong> in the file system.</li>
+              <li class="fragment fade-in">The main mount point is named /. This is the root mount point.</li>
+              <li class="fragment fade-in">In the same file system you can have many volume with different filesystem.</li>
+              <div class="fragment fade-in">
+              <li>Mount points are described in the the <strong>/etc/fstab</strong> file.</li>
+  <pre>
+$ cat /etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p5 during installation
+UUID=2c2727a7-7b03-4c50-b4bf-8f1a5d26ecb0 /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=948D-8E86  /boot/efi       vfat    umask=0077      0       1
+# /home was on /dev/nvme0n1p6 during installation
+UUID=f1447f37-47d6-44d1-80d5-08df7a27c356 /home           ext4    defaults        0       2
+/swapfile                                 none            swap    sw              0       0
+  </pre>
+              </div>
+            </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Linux Volume example</a>
+
+            <div class="r-stack">
+              <img src="pages/linux_filesystem/mount.jpg"></img>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Volume Information</a>
+            <div class="r-fit-text">
+            <p>The mount command:</p>
+  <pre>
+$ mount | grep -v snap
+  </pre>
+  <pre class="fragment fade-in">
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=3866356k,nr_inodes=966589,mode=755,inode64)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,noexec,relatime,size=785436k,mode=755,inode64)
+/dev/nvme0n1p5 on / type ext4 (rw,relatime,errors=remount-ro)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,inode64)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k,inode64)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
+efivarfs on /sys/firmware/efi/efivars type efivarfs (rw,nosuid,nodev,noexec,relatime)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=29,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=20382)
+mqueue on /dev/mqueue type mqueue (rw,nosuid,nodev,noexec,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,nosuid,nodev,noexec,relatime)
+tracefs on /sys/kernel/tracing type tracefs (rw,nosuid,nodev,noexec,relatime)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
+configfs on /sys/kernel/config type configfs (rw,nosuid,nodev,noexec,relatime)
+none on /run/credentials/systemd-sysusers.service type ramfs (ro,nosuid,nodev,noexec,relatime,mode=700)
+tmpfs on /run/qemu type tmpfs (rw,nosuid,nodev,relatime,mode=755,inode64)
+/dev/nvme0n1p1 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+/dev/nvme0n1p6 on /home type ext4 (rw,relatime)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=785432k,nr_inodes=196358,mode=700,uid=1000,gid=1000,inode64)
+  </pre>
+            </div>
+          </section>
         </section>
 
 				<section>
