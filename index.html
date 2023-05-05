@@ -343,6 +343,62 @@ tmpfs           3,8G     0  3,8G   0% /run/qemu
             <p class="fragment fade-in">Some file systems are used on local data storage devices; others provide file access via a network protocol (for example, NFS, SMB, or 9P clients). Some file systems are "virtual", meaning that the supplied "files" (called virtual files) are computed on request (such as procfs and sysfs) or are merely a mapping into a different file system used as a backing store. The file system manages access to both the content of files and the metadata about those files. It is responsible for arranging storage space; reliability, efficiency, and tuning with regard to the physical storage medium are important design considerations.</p>
             </div>
           </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">File System - Microsoft</a>
+            <div class="r-fit-text fragment fade-in">
+              <table>
+                <tr><th>Name</th><th>Year</th><th>Properties</th></tr>
+                <tr><td>FAT</td><td>1977</td><td>Max volume size: 2-4GB, Max file size: 2-4GB, Max br of files: 65460, filename: 8.3 characters</td></tr>
+                <tr><td>FAT 32</td><td>1996</td><td>Max vol size: 2TB, Max file size: 2-4(LFS)GB, Max br of files: 268,173,300, filename: 8.3 then 255(LFN-vFAT 1995)</td></tr>
+                <tr><td>ExFAT</td><td>2006</td><td>Max vol size: 128PB, Max file size: 128PB, 255 characters, date resolution 10ms, date range: 1980-2107/12/31, ACL windows CE 6 only</td></tr>
+                <tr><td>NTFS</td><td>1993</td><td>Max Vol size: 256TB, ACL, date resolution: 100ns, date range: 1601-28 May 60056</td></tr>
+              </table>
+            </div>
+            <p class="fragment fade-in">All those file systems can be accessed in Read/Write by Linux.</p>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">File System - Unix(UFS)</a>
+            <div class="r-fit-text">
+            <p>The Unix file system (UFS) is a family of file systems supported by many Unix and Unix-like operating systems.</p>
+            <div class="fragment fade-in">
+              <p>A UFS volume is composed of the following parts:<p>
+              <ul>
+                <li class="fragment fade-in">A few blocks at the beginning of the partition reserved for boot blocks (which must be initialized separately from the filesystem)</li>
+                <li class="fragment fade-in">A superblock, containing a magic number identifying this as a UFS filesystem, and some other vital numbers describing this filesystem's geometry and statistics and behavioral tuning parameters</li>
+                <li class="fragment fade-in">A collection of cylinder groups. Each cylinder group has the following components:</li>
+                <ul>
+                  <li class="fragment fade-in">A backup copy of the superblock</li>
+                  <li class="fragment fade-in">A cylinder group header, with statistics, free lists, etc., about this cylinder group, similar to those in the superblock</li>
+                  <li class="fragment fade-in">A number of inodes, each containing file attributes</li>
+                  <li class="fragment fade-in">A number of data blocks</li>
+                </ul>
+              </ul>
+            </div>
+            <p class="fragment fade-in">Directory files contain only the list of filenames in the directory and the inode associated with each file. All file metadata are kept in the inode. You can see this mapping thanks to <code>ls -i</code> command</p>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">UFS File System - Well known</a>
+            <div class="r-fit-text fragment fade-in">
+              <table>
+                <tr><th>Name</th><th>Year</th><th>Properties</th></tr>
+                <tr><td>Ext 2</td><td>1993</td><td>Max volume size: 2-32TB, Max file size: 16GB-2TB, filename: 255 characters, no journaling</td></tr>
+                <tr><td>Ext 3</td><td>2001</td><td>journaling, slower than XFS, ReiserFS, ext4 but consume less CPU</td></tr>
+                <tr><td>Ext 4</td><td>2008</td><td>Backward compatible. Faster, more reliable.</td></tr>
+                <tr><td>XFS</td><td>1994</td><td>High Performance</td></tr>
+                <tr><td>ZFS</td><td>2009</td><td>128 bits fs,Volume Management capabilities, long term storage, Native RAID Support + RAIDZ, silent self healing</td></tr>
+                <tr><td>ReiserFS</td><td>2009</td><td>will be removed from Linux Kernel in 2025 because date stop in 2038</td></tr>
+              </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Tmpfs - Procfs</a>
+            <div class="r-fit-text">
+              <p class="fragment fade-in">tmpfs (short for Temporary File System) is a temporary file storage paradigm implemented in many Unix-like operating systems. It is intended to appear as a mounted file system, but data is stored in volatile memory instead of a persistent storage device.</p>
+              <p class="fragment fade-in">The proc filesystem (procfs) is a special filesystem in Unix-like operating systems that presents information about processes and other system information in a hierarchical file-like structure, providing a more convenient and standardized method for dynamically accessing process data held in the kernel than traditional tracing methods or direct access to kernel memory. Typically, it is mapped to a mount point named /proc at boot time. The proc file system acts as an interface to internal data structures about running processes in the kernel. In Linux, it can also be used to obtain information about the kernel and to change certain kernel parameters at runtime</p>
+              <p class="fragment fade-in">You can use the <code>ps</code> command to access this data.</p>
+            </div>
+          </section>
         </section>
 
 				<section>

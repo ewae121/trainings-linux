@@ -295,7 +295,6 @@ UUID=f1447f37-47d6-44d1-80d5-08df7a27c356 /home           ext4    defaults      
       Reference: <a href="https://en.wikipedia.org/wiki/ISO_9660" target=_blank>Wikipedia ISO 9660</a>
 
     <h3>tmpfs</h3>
-
       <p>tmpfs (short for Temporary File System) is a temporary file storage paradigm implemented in many Unix-like operating systems. It is intended to appear as a mounted file system, but data is stored in volatile memory instead of a persistent storage device. A similar construction is a RAM disk, which appears as a virtual disk drive and hosts a disk file system.</p>
       <h4>Advantages</h4>
         <p>Due to the higher speeds of RAM compared to disk storage, tmpfs allows cache to be much faster when stored in one, leading to a more efficient overall system, though operating systems with a page cache will see less benefit as recently-used file pages will remain in-memory if free memory is sufficient. Since RAM is cleared upon reboot, tmpfs prevents systems from becoming too cluttered without requiring that the user manually deletes temporary files. In addition, storing files in RAM prevents disks from filling up too quickly and extends the life of solid-state drives by reducing the amount of writes.</p>
@@ -317,7 +316,29 @@ UUID=f1447f37-47d6-44d1-80d5-08df7a27c356 /home           ext4    defaults      
       Reference: <a href="https://en.wikipedia.org/wiki/Procfs" target=_blank>Wikipedia Procfs</a>
 
 
-  <h2>Unix FS - Inode Concept</h2>
+  <h2>Unix FS</h2>
+    <p>The Unix file system (UFS) is a family of file systems supported by many Unix and Unix-like operating systems.</p>
+
+    <h3>Design</h3>
+    <p>A UFS volume is composed of the following parts:<p>
+    <ul>
+      <li>A few blocks at the beginning of the partition reserved for boot blocks (which must be initialized separately from the filesystem)</li>
+      <li>A superblock, containing a magic number identifying this as a UFS filesystem, and some other vital numbers describing this filesystem's geometry and statistics and behavioral tuning parameters</li>
+      <li>A collection of cylinder groups. Each cylinder group has the following components:</li>
+      <ul>
+        <li>A backup copy of the superblock</li>
+        <li>A cylinder group header, with statistics, free lists, etc., about this cylinder group, similar to those in the superblock</li>
+        <li>A number of inodes, each containing file attributes</li>
+        <li>A number of data blocks</li>
+      </ul>
+    </ul>
+
+    <p>Inodes are numbered sequentially, starting at 0. Inode 0 is reserved for unallocated directory entries, inode 1 was the inode of the bad block file in historical UNIX versions, followed by the inode for the root directory, which is always inode 2 and the inode for the lost+found directory which is inode 3.</p>
+
+    <p>Directory files contain only the list of filenames in the directory and the inode associated with each file. All file metadata are kept in the inode.</p>
+
+
+  <h3>Inode Concept</h3>
     The inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. Each inode stores the attributes and disk block locations of the object's data. File-system object attributes may include metadata (times of last change, access, modification), as well as owner and permission data.
 
     A directory is a list of inodes with their assigned names. The list includes an entry for itself, its parent, and each of its children.
@@ -473,11 +494,13 @@ ls -li *
 </tbody>
 </table>
 
-
   <h1>References:</h1>
     <ul>
       <li><a href="https://en.wikipedia.org/wiki/File_system" target=_blank>Wikipedia File system</a></li>
       <li><a href="https://en.wikipedia.org/wiki/Inode" target=_blank>Wikipedia Inode</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/ZFS" target=_blank>Wikipedia ZFS</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Unix_File_System" target=_blank>Wikipedia Unix File System</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Journaling_file_system" target=_blank>Wikipedia Journaling File System</a></li>
       <li><a href="https://en.wikipedia.org/wiki/Disk_partitioning" target=_blank>Wikipedia Disk Partitioning</a></li>
       <li><a href="https://wiki.archlinux.org/title/Device_file" target=_blank>Device file</a></li>
       <li><a href="https://opensource.com/article/17/5/introduction-ext4-filesystem" target=_blank>Introduction to Ext4 File system</a></li>
