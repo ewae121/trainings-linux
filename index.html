@@ -16,7 +16,19 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section><h1>Linux Training</h1></section>
+				<section>
+				  <section>
+            <h1>Linux Training</h1>
+				  </section>
+				  <section>
+            <h2>Why this presentation?</h2>
+            <ul>
+              <li>It is a preambule for a kernel presentation.</li>
+              <li>It is more important to understand how things works than knowing specific commands to solve issues.</li>
+              <li>It describes the way of doing well in computer sciences.</li>
+            </ul>
+          </section>
+        </section>
 
 				<section>
 				  <section>
@@ -734,10 +746,47 @@ lrwxrwxrwx 777 symbolic link
 e@pluton:/etc/systemd$ stat -c "%i %h %x" /usr/lib/systemd/system/rsyslog.service
 261829 1 2023-05-10 20:50:45.992885739 +0200
       </pre>
-
               </div>
             </div>
 				  </section>
+        </section>
+				<section>
+				  <section>
+            <h2><a href="pages/linux_fhs/fhs.html" target="_blank">Linux Filesystem Herarchy Standard</a></h2>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">What is the FHS?</a>
+            <p>The Filesystem Hierarchy Standard (FHS) is a reference describing the conventions used for the layout of a UNIX system. It has been made popular by its use in Linux distributions, but it is used by other UNIX variants as well.</p> 
+            <p class="fragment fade-in">It is maintained by the Linux Foundation.</p>
+            <p class="fragment fade-in">The latest version is 3.0, released on 3 June 2015.</p>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The root folder</a>
+            <div class="r-fit-text">
+              <p>The <b>root</b> folder is the main system storage.</p>
+              <div class="fragment fade-in">
+                <ul>
+                  <li class="fragment fade-in">It is the "/" mount point.</li>
+                  <li class="fragment fade-in">It contains all data not associated to another mount point.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The global binaries folder</a>
+            <div class="r-fit-text">
+              <div class="fragment fade-in">
+                <p>The <b>/bin</b> folder is the single-user mode binary folder. It needs to be available to bring up or repair the system for all users.</p>
+              </div>
+              <div class="fragment fade-in">
+                <p>The <b>/sbin</b> folder is the single-user mode essential binary folder.</p>
+              </div>
+              <div class="fragment fade-in">
+                <p>You can use the <b>which</b> command to know what command is executed.</p>
+                <p>To use a specific command you can use its full path. Sometimes it is strongly adviced or mandatory to use full path to commands as in scripts or in docker volumes mountage.</p>
+              </div>
+            </div>
+          </section>
         </section>
 
 				<section>
