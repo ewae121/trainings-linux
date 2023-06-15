@@ -12,11 +12,29 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+    <style type="text/css">
+      p { text-align: left; }
+      .folders {
+        border: 1px solid white;
+      }
+    </style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section><h1>Linux Training</h1></section>
+				<section>
+				  <section>
+            <h1>Linux Training</h1>
+				  </section>
+				  <section>
+            <h2>Why this presentation?</h2>
+            <ul>
+              <li>It is a preambule for a kernel presentation.</li>
+              <li>It is more important to understand how things works than knowing specific commands to solve issues.</li>
+              <li>It describes the way of doing well in computer sciences.</li>
+            </ul>
+          </section>
+        </section>
 
 				<section>
 				  <section>
@@ -81,7 +99,26 @@
 				  <section>
             <a href="pages/linux_intro/linux.html" target="_blank">What is Linux?</a>
             <p><span class="fragment fade-in">Linux is a family of <strong>open-source Unix-like operating systems</strong> based on the Linux kernel.</span><span class="fragment fade-in"> Linux is typically packaged as a Linux distribution, which includes the kernel and supporting system software and libraries, many of which are provided by the <strong>GNU Project</strong>.</span></p>
-            <p class="fragment fade-in">Linux was first released on September 17, 1991, by Linus Torvalds.</p>
+          </section>
+				  <section>
+            <a href="pages/linux_intro/linux.html" target="_blank">Linux history</a>
+            <div class="r-fit-text">
+            <p><ul>
+              <li class="fragment fade-in">1969 AT&T - Unix in assembly</li>
+              <li class="fragment fade-in">1971 Unix first release</li>
+              <li class="fragment fade-in">1973 Rewrite in C by Dennis Ritchie except some IO routines</li>
+            </ul></p>
+            <p><ul>
+              <li class="fragment fade-in">1983 GNU Project by Richard Stallman - complete unix compatible</li>
+              <li class="fragment fade-in">1985 Free Software Foundation</li>
+            </ul></p>
+            <p><ul>
+              <li class="fragment fade-in">1990 - Linus enroll a Unix course</li>
+              <li class="fragment fade-in">1991, July 3rd - attempt to get POSIX standard documentation</li>
+              <li class="fragment fade-in">Found info with Minix which is a clone of Unix. He start coding Linux kernel on Minix. Then he switch the license to the GNU GPL project.</li>
+              <li class="fragment fade-in">Linux was first released on September 17, 1991, by Linus Torvalds.</li>
+            </ul></p>
+            </div>
           </section>
 				  <section>
             <a href="pages/linux_intro/linux.html" target="_blank">Linux design</a>
@@ -108,10 +145,12 @@
           </section>
 				  <section>
             <a href="pages/linux_distributions/distributions.html" target="_blank">What is a Linux Distribution?</a>
+            <div class="r-fit-text">
             <p><b>A Linux distribution(often abbreviated as distro) is an operating system made from a software collection that includes the Linux kernel, and often a package management system.</b></p>
             <p>A Linux distribution may also be <b>described as a particular assortment of application and utility software (various GNU tools and libraries, for example), packaged with the Linux kernel in such a way that its capabilities meet many users' needs.</b></p>
             <p><b>very few packages are actually written by a distribution's maintainers.</b></p>
             <p><b>Almost one thousand Linux distributions exist.</b></p>
+            </div>
           </section>
 
 				  <section>
@@ -378,6 +417,14 @@ tmpfs           3,8G     0  3,8G   0% /run/qemu
             </div>
           </section>
 				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">File System - Unix(UFS)</a>
+            <div class="r-stack">
+              <p>
+                <img src="pages/linux_filesystem/cylinder_groups.PNG"></img>
+              </p>
+            </div>
+          </section>
+				  <section>
             <a href="pages/linux_filesystem/fs.html" target="_blank">UFS File System - Well known</a>
             <div class="r-fit-text fragment fade-in">
               <table>
@@ -399,46 +446,527 @@ tmpfs           3,8G     0  3,8G   0% /run/qemu
               <p class="fragment fade-in">You can use the <code>ps</code> command to access this data.</p>
             </div>
           </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Linux Volume Information</a>
+            <div class="r-fit-text">
+            <ul>
+              <li class="fragment fade-in">Linux volume are <strong>mounted</strong> in the file system.</li>
+              <li class="fragment fade-in">The main mount point is named /. This is the root mount point.</li>
+              <li class="fragment fade-in">In the same file system you can have many volume with different filesystem.</li>
+              <div class="fragment fade-in">
+              <li>Mount points are described in the the <strong>/etc/fstab</strong> file.</li>
+  <pre>
+$ cat /etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p5 during installation
+UUID=2c2727a7-7b03-4c50-b4bf-8f1a5d26ecb0 /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=948D-8E86  /boot/efi       vfat    umask=0077      0       1
+# /home was on /dev/nvme0n1p6 during installation
+UUID=f1447f37-47d6-44d1-80d5-08df7a27c356 /home           ext4    defaults        0       2
+/swapfile                                 none            swap    sw              0       0
+  </pre>
+              </div>
+            </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Linux Volume example</a>
+
+            <div class="r-stack">
+              <img src="pages/linux_filesystem/mount.jpg"></img>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Volume Information</a>
+            <div class="r-fit-text">
+            <p>The mount command:</p>
+  <pre>
+$ mount | grep -v snap
+  </pre>
+  <pre class="fragment fade-in">
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=3866356k,nr_inodes=966589,mode=755,inode64)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,noexec,relatime,size=785436k,mode=755,inode64)
+/dev/nvme0n1p5 on / type ext4 (rw,relatime,errors=remount-ro)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,inode64)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k,inode64)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
+efivarfs on /sys/firmware/efi/efivars type efivarfs (rw,nosuid,nodev,noexec,relatime)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=29,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=20382)
+mqueue on /dev/mqueue type mqueue (rw,nosuid,nodev,noexec,relatime)
+debugfs on /sys/kernel/debug type debugfs (rw,nosuid,nodev,noexec,relatime)
+tracefs on /sys/kernel/tracing type tracefs (rw,nosuid,nodev,noexec,relatime)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
+configfs on /sys/kernel/config type configfs (rw,nosuid,nodev,noexec,relatime)
+none on /run/credentials/systemd-sysusers.service type ramfs (ro,nosuid,nodev,noexec,relatime,mode=700)
+tmpfs on /run/qemu type tmpfs (rw,nosuid,nodev,relatime,mode=755,inode64)
+/dev/nvme0n1p1 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+/dev/nvme0n1p6 on /home type ext4 (rw,relatime)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=785432k,nr_inodes=196358,mode=700,uid=1000,gid=1000,inode64)
+  </pre>
+            </div>
+          </section>
         </section>
 
 				<section>
 				  <section>
-            Overview
+            <h2><a href="pages/linux_files/files.html" target="_blank">Linux file system entries</a></h2>
           </section>
 				  <section>
-            <a href="pages/00_overview/linux.html" target="_blank">What is Linux?</a>
-            <p class="fragment fade-in">Main points:</p>
+            <a href="pages/linux_files/files.html" target="_blank">File path</a>
             <ul>
-              <li class="fragment fade-in">First released on September 17, 1991, by Linus Torvalds.</li>
-              <li class="fragment fade-in">Linux is an Unix-Like Operating System.</li>
-              <li class="fragment fade-in">All is a given as a file.</li>
-              <li class="fragment fade-in">It is Open Source.</li>
+              <li class="fragment fade-in">A file path is an easy way to retrieve inode content.</li>
+              <li class="fragment fade-in">A file path can refer to a directory, a link or a file.</li>
+              <li class="fragment fade-in">A file path can be absolute(starts by "/") or relative to the current directory.</li>
             </ul>
           </section>
 
-				<section>
 				  <section>
-            <a href="pages/00_overview/linux.html" target="_blank">Linux Architecture</a>
+            <a href="pages/linux_files/files.html" target="_blank">File naming convention</a>
+            <ul>
+              <li class="fragment fade-in">The file extension are optional on Linux. It can be used to sort files or provide indication. You can have as many extensions as you want to. Example this file is totaly valid: mytest-0.0.1.tar.gz.deprecated.</li>
+              <li class="fragment fade-in">Files starting by a dot character are not displayed by the ls command. They can be displayed using -a option in the ls command.</li>
+            </ul>
+          </section>
+
+				  <section>
+            <a href="pages/linux_files/files.html" target="_blank">File path - example</a>
+
+            <div class="r-fit-text">
+  <pre class="fragment fade-in">
+user@io:~/training$ mkdir directory
+  </pre>
+  <pre class="fragment fade-in">
+user@io:~/training$ touch file
+  </pre>
+  <pre class="fragment fade-in">
+user@io:~/training$ ln -s file symlink
+  </pre>
+  <pre class="fragment fade-in">
+user@io:~/training$ ln file hardlink
+  </pre>
+  <pre class="fragment fade-in">
+user@io:~/training$ ls -li
+total 4
+8532318 drwxrwxr-x 2 uidn4221 uidn4221 4096 mai   18 00:07 directory
+8532326 -rw-rw-r-- 2 uidn4221 uidn4221    0 mai   18 00:07 file
+8532326 -rw-rw-r-- 2 uidn4221 uidn4221    0 mai   18 00:07 hardlink
+8532149 lrwxrwxrwx 1 uidn4221 uidn4221    4 mai   18 00:07 symlink -> file
+  </pre>
+            </div>
           </section>
 				  <section>
-              <img src="pages/00_overview/Linux_design.png"></img>
-          </section>
-				  <section>
-              <h2>Linux documentation.</h2>
-              Linux is Open source and well documented. The documentation is available thanks to the man command.
-          </section>
-				</section>
-				<section>
-				  <section>
-            <a href="pages/00_overview/linux.html" target="_blank">Linux File System</a>
-            <p class="fragment fade-in"><b>Everything is a file</b></p>
+            <a href="pages/linux_files/files.html" target="_blank">Manipulating file paths</a>
+            <div class="r-fit-text">
+              <ul>
+                <div class="fragment fade-in">
+                  <li>basename - strip directory and suffix from filenames.</li>
+<pre>
+        e---@pluton:/etc/systemd$ basename system/syslog.service 
+        syslog.service
+        e---@pluton:/etc/systemd$ basename system/syslog.service .service
+        syslog
+</pre>
+                </div>
+
+                <div class="fragment fade-in">
+                  <li>dirname - strip component from file name.</li>
+<pre>
+       dirname /usr/bin/
+              -> "/usr"
+</pre>
+                </div>
+
+                <div class="fragment fade-in">
+                  <li>realpath - print the resolved path.</li>
+<pre>
+~/dev/trainings/linux/example/subdir$ ls -l
+lrwxrwxrwx 1 ewae ewae 7 mai   19 01:28 symlink -> ../file
+
+~/dev/trainings/linux/example$ realpath subdir/symlink 
+/home/ewae/dev/trainings/linux/example/file
+
+~/dev/trainings/linux/example$ realpath -L subdir/symlink 
+/home/ewae/dev/trainings/linux/example/file
+
+~/dev/trainings/linux/example$ realpath -s subdir/symlink 
+/home/ewae/dev/trainings/linux/example/subdir/symlink
+
+~/dev/trainings/linux/example$ realpath --no-symlinks subdir/symlink 
+/home/ewae/dev/trainings/linux/example/subdir/symlink
+</pre>
+                </div>
+              </ul>
+              <p class="fragment fade-in">It exists a -z option to end the result with a \0 instead of new line.</p>
+            </div>
 				  </section>
 				  <section>
-            <a href="pages/00_overview/linux.html" target="_blank">Filesystem Hierarchy Standard</a>
-           <p> The Filesystem Hierarchy Standard (FHS) is a reference describing the conventions used for the layout of a UNIX system. It has been made popular by its use in Linux distributions, but it is used by other UNIX variants as well. It is maintained by the Linux Foundation. The latest version is 3.0, released on 3 June 2015.</p>
+            <a href="pages/linux_files/files.html" target="_blank">Special folders - Home</a>
+            <div class="r-fit-text">
+                <div>
+                  <p>The Home directory is noted <b>~</b></p>
+                  <p>It can be reached using the <b>cd</b> command without argument.</p>
+                  <p>It is strongly adviced to mount it with a dedicated mount point different than <b>/</b>. This way you ensure:</p>
+                  <ul>
+                    <li>to preserve your personal data in case of system update</li>
+                    <li>to have a dedicated storage for your personal data not to run out of space on System device.</li>
+                  </ul>
+                  <p>It is associated to your user in the <p>/etc/passwd</p> file. Example:
+<pre>
+user@miranda:~/dev$ cat /etc/passwd | grep -E "user|root"
+root:x:0:0:root:/root:/bin/bash
+user:x:1000:1000:user,,,:/home/user:/bin/bash
+snapd-range-524288-root:x:524288:524288::/nonexistent:/usr/bin/false
+</pre>
+                </div>
+				  </section>
+				  <section>
+            <a href="pages/linux_files/files.html" target="_blank">Special folders - . and ..</a>
+            <div class="r-fit-text">
+              <ul>
+                <li><b>..</b> is the parent folder.</li>
+                <li><b>.</b> is the current folder known as the current/working directory.</li>
+              </ul>
+                </div>
+				  </section>
+				  <section>
+            <a href="pages/linux_files/files.html" target="_blank">Environment variables</a>
+            <div class="r-fit-text">
+              <table>
+                <tr><th>variable</th><th>describe</th></tr>
+                <tr><td>HOME</td><td>User home folder.</td></tr>
+                <tr><td>PWD</td><td>Current/working directory</td></tr>
+                <tr><td>OLDPWD</td><td>Previous current/working directory</td></tr>
+              </table>
+              <p>You can display a variable value with: <code>echo $HOME</code> command.</p>
+      <pre>
+user@miranda:~/dev/gitlab$ echo {$HOME,$PWD,$OLDPWD}
+/home/user /home/user/dev/gitlab /tmp
+      </pre>
+            </div>
+				  </section>
+				  <section>
+            <a href="pages/linux_files/files.html" target="_blank">Navigate in the File System</a>
+            <div class="r-fit-text">
+              <div  class="fragment fade-in">
+                <p>You can change your current working directory using the cd command. "cd" means change directory.</p>
+                <table>
+                  <tr><td>cd /path</td><td>change directory to /path.</td></tr>
+                  <tr><td>cd path</td><td>change directory to $PWD/path.</td></tr>
+                  <tr><td>cd ..</td><td>change directory to the parent folder.</td></tr>
+                  <tr><td>cd</td><td>change directory to the HOME folder.</td></tr>
+                  <tr><td>cd -</td><td>change directory to the OLDPWD folder.</td></tr>
+                </table>
+              </div>
+              <div  class="fragment fade-in">
+                <p><b>pwd</b> command print name of current/working directory.</p>
+              </div>
+            </div>
+				  </section>
+				  <section>
+            <a href="pages/linux_files/files.html" target="_blank">List directory entries</a>
+            <div class="r-fit-text">
+              <div  class="fragment fade-in">
+                <p>You can list directory entries using the ls command.</p>
+                <table>
+                  <tr><th>command</th><th>describe</th></tr>
+                  <tr><td>ls /path</td><td>list the /path entries.</td></tr>
+                  <tr><td>ls</td><td>list the current working directory entries.</td></tr>
+                  <tr><td>ls -l</td><td>long listing format.</td></tr>
+                  <tr><td>ls -a or ls -A </td><td>list all files or almost all files(starting by .</td></tr>
+                  <tr><td>ls -i</td><td>display file associated inode</td></tr>
+                </table>
+              </div>
+            </div>
+				  </section>
+				  <section>
+            <a href="pages/linux_files/files.html" target="_blank">Get file information</a>
+            <div class="r-fit-text">
+              <div>
+                <p>You can get file information using the <b>file</b> command.</p>
+      <pre>
+  EXAMPLES
+             $ file file.c file /dev/{wd0a,hda}
+             file.c:   C program text
+             file:     ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV),
+                       dynamically linked (uses shared libs), stripped
+             /dev/wd0a: block special (0/0)
+             /dev/hda: block special (3/0)
+  
+             $ file -s /dev/wd0{b,d}
+             /dev/wd0b: data
+             /dev/wd0d: x86 boot sector
+  
+             $ file -s /dev/hda{,1,2,3,4,5,6,7,8,9,10}
+             /dev/hda:   x86 boot sector
+             /dev/hda1:  Linux/i386 ext2 filesystem
+             /dev/hda2:  x86 boot sector
+             /dev/hda3:  x86 boot sector, extended partition table
+             /dev/hda4:  Linux/i386 ext2 filesystem
+             /dev/hda5:  Linux/i386 swap file
+             /dev/hda6:  Linux/i386 swap file
+             /dev/hda7:  Linux/i386 swap file
+             /dev/hda8:  Linux/i386 swap file
+             /dev/hda9:  empty
+             /dev/hda10: empty
+  
+             $ file -i file.c file /dev/{wd0a,hda}
+             file.c:      text/x-c
+             file:        application/x-executable
+             /dev/hda:    application/x-not-regular-file
+             /dev/wd0a:   application/x-not-regular-file
+      </pre>
+              </div>
+            </div>
+				  </section>
+				  <section>
+            <a href="pages/linux_files/files.html" target="_blank">Get file or file system status</a>
+            <div class="r-fit-text">
+              <div>
+                <p>Display file or file system status. The stat command is very flexible and useful to get information or script. It provides options for the output format and offer to request specific fields easily.</p>
+        <pre>
+e@pluton:/etc/systemd$ stat system/syslog.service
+  File: system/syslog.service -> /lib/systemd/system/rsyslog.service
+  Size: 35              Blocks: 0          IO Block: 4096   symbolic link
+Device: 10305h/66309d   Inode: 656118      Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2023-05-10 20:50:45.984885110 +0200
+Modify: 2022-02-05 21:03:25.738792760 +0100
+Change: 2022-02-05 21:03:25.738792760 +0100
+ Birth: 2022-02-05 21:03:25.738792760 +0100
+
+e@pluton:/etc/systemd$ stat --terse --file-system system/syslog.service
+system/syslog.service bda89898e0a02526 255 ef53 4096 4096 7515358 1940756 1552660 1921360 1528297
+
+e@pluton:/etc/systemd$ stat -c "%a" system/syslog.service
+777
+
+e@pluton:/etc/systemd$ stat -c "%A" system/syslog.service
+lrwxrwxrwx
+
+e@pluton:/etc/systemd$ stat -c "%A %a" system/syslog.service
+lrwxrwxrwx 777
+
+e@pluton:/etc/systemd$ stat -c "%A %a %F" system/syslog.service
+lrwxrwxrwx 777 symbolic link
+
+e@pluton:/etc/systemd$ stat -c "%i %h %x" /usr/lib/systemd/system/rsyslog.service
+261829 1 2023-05-10 20:50:45.992885739 +0200
+      </pre>
+              </div>
+            </div>
+				  </section>
+        </section>
+				<section>
+				  <section>
+            <h2><a href="pages/linux_fhs/fhs.html" target="_blank">Linux Filesystem Herarchy Standard</a></h2>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">What is the FHS?</a>
+            <p>The Filesystem Hierarchy Standard (FHS) is a reference describing the conventions used for the layout of a UNIX system. It has been made popular by its use in Linux distributions, but it is used by other UNIX variants as well.</p> 
+            <p class="fragment fade-in">It is maintained by the Linux Foundation.</p>
+            <p class="fragment fade-in">The latest version is 3.0, released on 3 June 2015.</p>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The root folder</a>
+            <div class="r-fit-text">
+              <p>The <b>root</b> folder is the main system storage.</p>
+              <div class="fragment fade-in">
+                <ul>
+                  <li class="fragment fade-in">It is the "/" mount point.</li>
+                  <li class="fragment fade-in">It contains all data not associated to another mount point.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The home folders</a>
+            <div class="r-fit-text">
+              <p>The <b>home folders</b> are here to store user data.</p>
+              <table class="fragment fade-in folders">
+                <tr><td><b>/root</b></td><td>Root user home folder.</td></tr>
+                <tr><td><b>/home</b></td><td>Contains home folder for users. Not a rule but often.</td></tr>
+              </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The global binaries folder</a>
+            <div class="r-fit-text">
+              <p>The single-user mode folder define commands for all users.</p>
+              <table class="fragment fade-in folders">
+                <tr><td><b>/bin</b></td><td>single-user mode binary folder. It needs to be available to bring up or repair the system for all users.</td></tr>
+                <tr><td><b>/sbin</b></td><td>single-user mode essential binary folder.</td></tr>
+              </table>
+              <ul style="margin-top: 20px">
+                <li class="fragment fade-in">You can use the <b>which</b> command to know what command is executed.</li>
+                <li class="fragment fade-in">Alternate format essential libraries. These are typically used on systems that support more than one executable code format, such as systems supporting 32-bit and 64-bit versions of an instruction set. Such directories are optional.</li>
+              </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The global libraries folder</a>
+            <div class="r-fit-text">
+              <table class="fragment fade-in folders">
+                <tr><td><b>/lib</b></td><td>libraries essential for the binaries in /bin and /sbin.</td></tr>
+                <tr><td><b><code>/lib(qualifier)</code></b></td><td>libraries essential for the qualified architecture.</td></tr>
+              </table>
+              <ul style="margin-top: 20px">
+                <li class="fragment fade-in">those folders are referenced by default by ld.so(man ld.so)</li>
+                <li class="fragment fade-in">to see the shared objects used by a binary you can use the ldd command</li>
+                <li class="fragment fade-in">you can use the LD_LIBRARY_PATH env variable to append shared object folders. The order is important.</li>
+              </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The Boot folder</a>
+            <div class="r-fit-text">
+              <table class="fragment fade-in folders">
+                <tr><td><b>/boot</b></td><td>Boot folder containing kernels to load....</td></tr>
+                <tr><td><b>/boot/grub</b></td><td>Grub folder containing Grub system and boot configurations</td></tr>
+                <tr><td><b>/boot/efi</b></td><td>Separate FAT partition for the EFI(Extensible Firmware Interface) system partition.</td></tr>
+              </table>
+              <ul style="margin-top: 20px">
+                <li class="fragment fade-in">Corrupting this patition will prevent system to reboot.</li>
+                <li class="fragment fade-in">The /boot/grub/grub.cfg allow to update the boot configuration.</li>
+              </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The devices folder</a>
+            <div class="r-fit-text">
+              <table class="fragment fade-in folders">
+                <tr><td><b>/dev</b></td><td>Device files(physical and virtual).</td></tr>
+              </table>
+              <ul style="margin-top: 20px">
+                <li class="fragment fade-in">Devices can be characters(ttys...), block(hard drives...), pseudo devices.</li>
+                <li class="fragment fade-in">You can get informations using the udevadm command as: <code>udevadm info /dev/mem</code>.</li>
+                <li class="fragment fade-in">Example using a character device: <code>tty</code>, /dev/urandom(<code>head -c 2 /dev/urandom | hexdump -C</code>).</li>
+                <li class="fragment fade-in">Main names:
+                  <ul>
+                    <li><code>/dev/tty, /dev/pts, /dev/ttyS</code>.</li>
+                    <li><code>/dev/null</code>.</li>
+                    <li><code>/dev/stdout, /dev/stdin, /dev/stderr</code>.</li>
+                    <li><code>/dev/urandom</code>.</li>
+                    <li><code>/dev/loop</code>.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The kernel folder</a>
+            <div class="r-fit-text">
+              <table class="fragment fade-in folders">
+                <tr><td><b>/proc</b></td><td>Files that document the kernel status.</td></tr>
+              </table>
+              <ul style="margin-top: 20px">
+                <li class="fragment fade-in">Files are mount on virtual file system.</li>
+                <li class="fragment fade-in">File content is generated on demand. And will be always different.</li>
+                <li class="fragment fade-in">commands as memusage, ps, pstree, pgrep, top, uptime are proposed to navigate in the content.</li>
+                <li class="fragment fade-in">You can change kernel modules behavior edit files: <code>echo 1 > /proc/sys/net/ipv4/ip_forward</code></li>
+                <li class="fragment fade-in">Main names:
+                  <ul>
+                    <li><code>/proc/cpuinfo, /proc/meminfo</code>.</li>
+                    <li><code>/proc/filesystems, /proc/partitions, /proc/diskstats</code>.</li>
+                    <li><code>/proc/version, /proc/uptime</code>.</li>
+                    <li><code>/proc/devices, /proc/modules</code>.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The sysfs</a>
+            <div class="r-fit-text">
+              <table class="fragment fade-in folders">
+                <tr><td><b>/sys</b></td><td>Interface to the kernel settings.</td></tr>
+              </table>
+              <ul style="margin-top: 20px">
+                <li class="fragment fade-in">export kernel objects</li>
+                <li class="fragment fade-in">doc is provided here: man 5 sysfs</li>
+              </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The configuration folders</a>
+            <div class="r-fit-text">
+              <table class="fragment fade-in folders">
+                <tr><td><b>/etc</b></td><td>configuration files for daemons, users, certificates...</td></tr>
+                <tr><td><b>/etc/opt</b></td><td>configuration files for /opt applications</td></tr>
+              </table>
+              <ul style="margin-top: 20px">
+                <li class="fragment fade-in">There has been controversy over the meaning of the name itself. In early versions of the UNIX Implementation Document from Bell labs, /etc is referred to as the etcetera directory, as this directory historically held everything that did not belong elsewhere (however, the FHS restricts /etc to static configuration files and may not contain binaries). Since the publication of early documentation, the directory name has been re-explained in various ways. Recent interpretations include backronyms such as "Editable Text Configuration" or "Extended Tool Chest".</li>
+                <li class="fragment fade-in">Main names:
+                  <ul>
+                    <li><code>/etc/passwd, /etc/groups</code>.</li>
+                    <li><code>/etc/ld.so.conf</code>.</li>
+                    <li><code>/etc/crontab</code>.</li>
+                    <li><code>/etc/host*, /etc/resolv.conf</code>.</li>
+                    <li>...</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The temporary folders</a>
+            <div class="r-fit-text">
+              <table class="fragment fade-in folders">
+                <tr><td><b>/tmp</b></td><td>Directory for temporary files. Often not preserved between system reboots and may be severely size-restricted because of special rights.(ls -lh)</td></tr>
+              </table>
+              <table class="fragment fade-in folders">
+                <tr><td><b>/run</b></td><td>Run-time variable data: Information about the running system since last boot, e.g., currently logged-in users and running daemons. Files under this directory must be either removed or truncated at the beginning of the boot process, but this is not necessary on systems that provide this directory as a temporary filesystem (tmpfs).</td></tr>
+              </table>
+              <table class="fragment fade-in folders">
+                <tr><td><b>/var</b></td><td>Variable files: files whose content is expected to continually change during normal operation of the system, such as logs, spool files, and temporary e-mail files.</td></tr>
+              </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The /var folders</a>
+            <div class="r-fit-text">
+              <table class="fragment">
+                <tr><td><b>/var/cache</b></td><td>Application cache data. Such data are locally generated as a result of time-consuming I/O or calculation. The application must be able to regenerate or restore the data. The cached files can be deleted without loss of data.</td></tr>
+                <tr><td><b>/var/lib</b></td><td>State information. Persistent data modified by programs as they run (e.g., databases, packaging system metadata, etc.).</td></tr>
+                <tr><td><b>/var/lock</b></td><td>Lock files. Files keeping track of resources currently in use.</td></tr>
+                <tr><td><b>/var/log</b></td><td>Log files.</td></tr>
+                <tr><td><b>/var/run</b></td><td>Run-time variable data. This directory contains system information data describing the system since it was booted.
+<BR/>
+In FHS 3.0, /var/run is replaced by /run; a system should either continue to provide a /var/run directory or provide a symbolic link from /var/run to /run for backwards compatibility. </td></tr>
+                <tr><td><b>/var/tmp</b></td><td>Temporary files to be preserved between reboots.</td></tr>
+              </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The mount folders</a>
+            <div class="r-fit-text">
+              <table class="fragment">
+                <tr><td><b>/media</b></td><td>Mount points for removable media such as CD-ROMs (appeared in FHS-2.3 in 2004).</td></tr>
+                <tr><td><b>/mnt</b></td><td>Temporarily mounted filesystems.</td></tr>
+              </table>
+            </div>
+          </section>
+				  <section>
+            <a href="pages/linux_fhs/fhs.html" target="_blank">The secondary fhs</a>
+            <div class="r-fit-text">
+              <table class="fragment">
+                <tr><td><b>/usr</b></td><td>Secondary hierarchy for read-only user data; contains the majority of user utilities and applications. Should be shareable and read-only.</td></tr>
+              </table>
+            </div>
           </section>
         </section>
-
 				<section>
 				  <section>
             Linux Kernel 
@@ -488,40 +1016,6 @@ tmpfs           3,8G     0  3,8G   0% /run/qemu
           </section>
 				  <section>
             <a href="pages/kernel/services.html" target="_blank">Documentations</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-        </section>
-
-				<section>
-				  <section>
-             File System
-          </section>
-				  <section>
-            <a href="pages/filesystem/overview.html" target="_blank">Overview</a>
-            <!--p class="fragment fade-in">To summarize: an Operating System provides a Kernel, Services and applications to interact with the hardware.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/boot.html" target="_blank">partitions</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/boot.html" target="_blank">links</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/boot.html" target="_blank">/boot</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/dev.html" target="_blank">/dev</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/tmp.html" target="_blank">/tmp</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/tmp.html" target="_blank">...</a>
             <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
           </section>
         </section>
