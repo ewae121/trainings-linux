@@ -22,6 +22,8 @@
 	<body>
 <div class="reveal">
 <div class="slides">
+
+<!--Introduction-->
 <section>
 	<section>
    	    <h1>Bash training</h1>
@@ -45,6 +47,7 @@
     </section>
 </section>
 
+<!--What is bash-->
 <section>
 	<section>
         <h2><a href="https://www.gnu.org/software/bash/" target="_blank">What is Bash?</a></h2>
@@ -75,6 +78,169 @@
             <li class="fragment fade-in">Bash offers functional improvements over sh for both interactive and programming use.</li>
             <li class="fragment fade-in">Bash is often the default shell for GNU Operating System.</li>
         </ul></p>
+    </section>
+</section>
+
+<!--What is a shell-->
+<section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-a-shell_003f" target="_blank">What is a Shell?</a></h2>
+    </section>
+	<section>
+    	<h2>Question:</h2>
+        <div class="fragment fade-in">
+        	<p>What is Unix shell?</p>
+            <ul style="width:100%;text-align:left">
+                <li>A command interpreter</li>
+                <li>A programming language</li>
+                <li>A macro processor</li>
+            </ul>
+        </div>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-a-shell_003f" target="_blank">What is a Shell? Historic</a></h2>
+
+        <p>At its base, a shell is simply a macro processor that executes commands. The term macro processor means functionality where text and symbols are expanded to create larger expressions.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Features</a></h2>
+
+        <p>A Unix shell is both a command interpreter and a programming language.</p>    
+        <ul>
+            <li class="fragment fade-in">As a command interpreter, the shell provides the user interface to the rich set of GNU utilities.</li>
+            <li class="fragment fade-in">The programming language features allow these utilities to be combined.</li>
+        </ul>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Scripting</a></h2>
+
+        <p>Files containing commands can be created, and become commands themselves. These new commands have the
+        same status as system commands in directories such as /bin, allowing users or groups to establish custom
+        environments to automate their common tasks.</p>    
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Interactivity</a></h2>
+
+        <p>Shells may be used interactively or non-interactively. In interactive mode, they accept input typed from the keyboard. When executing
+        non-interactively, shells execute commands read from a file.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Execution types</a></h2>
+
+        <p>A shell allows execution of GNU commands, both synchronously and asynchronously. The shell waits for synchronous commands
+        to complete before accepting more input; asynchronous commands continue to execute in parallel with the shell while it reads
+        and executes additional commands. The redirection constructs permit fine-grained control of the input and output of those commands.
+        Moreover, the shell allows control over the contents of commands’ environments.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Builtins</a></h2>
+
+        <p>Shells also provide a small set of built-in commands (builtins) implementing functionality impossible or inconvenient to obtain
+        via separate utilities.For example, cd, break, continue, and exec cannot be implemented outside of the shell because they directly
+        manipulate the shell itself. The history, getopts, kill, or pwd builtins, among others, could be implemented in separate utilities,
+        but they are more convenient to use as builtin commands.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Programming Language</a></h2>
+
+        <p>While executing commands is essential, most of the power (and complexity) of shells is due to their embedded programming languages. Like any high-level language, the shell provides variables,
+        flow control constructs, quoting, and functions.</p>
+    </section>
+</section>
+
+<!--Shell operation-->
+<section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">How work a Shell?</a></h2>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Read input</a></h2>
+
+        <p>Reads its input:</p>
+        <ul>
+            <li class="fragment fade-in">from the user’s terminal.<pre>echo toto</pre></li>
+            <li class="fragment fade-in">from a string supplied as an argument to the -c invocation option (see Invoking Bash)<pre>bash -c "echo toto"</pre></li>
+            <li class="fragment fade-in">from a file (see Shell Scripts)<pre>echo "echo toto" > script && bash script</pre></li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Parse tokens</a></h2>
+
+        <p>Breaks the input into words and operators, obeying the quoting rules described in Quoting. These tokens are separated by metacharacters. Alias expansion is performed by this step</p>
+        <ul>
+            <li class="fragment fade-in">metacharacters list is: <pre>space, tab, newline, ‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, ‘>’</pre></li>
+            <li class="fragment fade-in">defined alias list can be displayed using: <pre>alias -p</pre></li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Make command(s)</a></h2>
+
+        <p>Parses the tokens into simple and compound commands</p>
+        <ul class="r-fit-text">
+            <li class="fragment fade-in">A simple command is the kind of command encountered most often. It’s just a sequence of words separated by blanks, terminated by one of the shell’s control operators. The first word generally specifies a command to be executed, with the rest of the words being that command’s arguments. Control operators: <pre>newline, ‘||’, ‘&&’, ‘&’, ‘;’, ‘;;’, ‘;&’, ‘;;&’, ‘|’, ‘|&’, ‘(’, or ‘)’</pre></li>
+            <li class="fragment fade-in">Compound commands are the shell programming language constructs.<pre>until test-commands; do consequent-commands; done</pre></li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Compound commands quizz</a></h2>
+        <pre>
+            until [ -f toto ]; do echo 2; sleep 2; done &
+        </pre>
+        <ul>
+            <li class="fragment fade-in">What the command will do?</li>
+            <li class="fragment fade-in">How can I stop it?</li>
+        </ul>
+        <pre class="fragment fade-in">
+            until false; do echo 2 sleep 2; done
+        </pre>
+        <ul>
+            <li class="fragment fade-in">What the command will do?</li>
+            <li class="fragment fade-in">How to add the delay?</li>
+        </ul>
+        <pre class="fragment fade-in">
+            until false; do echo 2; sleep 2; done &
+        </pre>
+        <ul>
+            <li class="fragment fade-in">How to stop it?</li>
+        </ul>
+    </section>
+1
+
+
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Scripting</a></h2>
+
+        <p>Files containing commands can be created, and become commands themselves. These new commands have the
+        same status as system commands in directories such as /bin, allowing users or groups to establish custom
+        environments to automate their common tasks.</p>    
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Interactivity</a></h2>
+
+        <p>Shells may be used interactively or non-interactively. In interactive mode, they accept input typed from the keyboard. When executing
+        non-interactively, shells execute commands read from a file.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Execution types</a></h2>
+
+        <p>A shell allows execution of GNU commands, both synchronously and asynchronously. The shell waits for synchronous commands
+        to complete before accepting more input; asynchronous commands continue to execute in parallel with the shell while it reads
+        and executes additional commands. The redirection constructs permit fine-grained control of the input and output of those commands.
+        Moreover, the shell allows control over the contents of commands’ environments.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Builtins</a></h2>
+
+        <p>Shells also provide a small set of built-in commands (builtins) implementing functionality impossible or inconvenient to obtain
+        via separate utilities.For example, cd, break, continue, and exec cannot be implemented outside of the shell because they directly
+        manipulate the shell itself. The history, getopts, kill, or pwd builtins, among others, could be implemented in separate utilities,
+        but they are more convenient to use as builtin commands.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Programming Language</a></h2>
+
+        <p>While executing commands is essential, most of the power (and complexity) of shells is due to their embedded programming languages. Like any high-level language, the shell provides variables,
+        flow control constructs, quoting, and functions.</p>
     </section>
 </section>
 </div>
