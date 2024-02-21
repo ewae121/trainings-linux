@@ -204,7 +204,85 @@
             <li class="fragment fade-in">How to stop it?</li>
         </ul>
     </section>
-1
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Perform expansion</a></h2>
+
+        <p>Performs the various shell expansions, breaking the expanded tokens into lists of filenames and commands and arguments.</p>
+        <ul>
+            <li class="fragment fade-in">shell expansions</li>
+            <li class="fragment fade-in">filename expansions</li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Shell expansion</a></h2>
+        <ul class="r-fit-text">
+            <li class="fragment fade-in">Brace expansion is a mechanism by which arbitrary strings may be generated.<pre>echo a{a,b,c}e</pre></li>
+            <li class="fragment fade-in">Tilde expansion if a word begins with an unquoted tilde character<pre>echo ~ ~id</pre></li>
+            <li class="fragment fade-in">The ‘$’ character introduces:</li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Parameter expansion</a></h2>
+            <div style="width:100%; font-size:x-large">
+            <p>A parameter expansion $var or ${var}</p>
+                <ul style="width:100%">
+                    <li class="fragment fade-in">you can display a value: <pre>unset val; val="toto"; echo $val</pre></li>
+                    <li class="fragment fade-in">you can return a default value: <pre>unset val; echo ${val:-"default"}; echo $val</pre></li>
+                    <li class="fragment fade-in">you can return a default value: <pre>unset val; echo ${val:="default"}; echo $val</pre></li>
+                    <li class="fragment fade-in">you can select a substring: <pre>unset val; val="toto"; echo ${val:1:-1}</pre></li>
+                    <li class="fragment fade-in">you can remove a substring at the beginning: <pre>unset val; val="toto"; echo ${val#?}</pre></li>
+                    <li class="fragment fade-in">you can remove a substring at the end: <pre>unset val; val="toto 20M"; echo "${val%20M}"</pre></li>
+                </ul>
+            </div>
+        <pre>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Command expansion</a></h2>
+            <p>A command expansion:</p>
+            <ul>
+                <li class="fragment fade-in">you can affect a command result value: <pre>unset val; val="$(date +"%M%H%S")"; echo $val</pre></li>
+                <li class="fragment fade-in">you can affect a command result value: <pre>unset val; val=`date +"%M%H%S"`; echo $val</pre></li>
+                <li class="fragment fade-in">you execute a string as: <pre>
+echo "ls -l" > toto
+$(cat toto)</pre></li>
+            </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Arithmetic expansion</a></h2>
+            <p>A arithmetic expansion $(( )):</p>
+            <pre>
+                uidn4221@io:~/dev/trainings-linux$ echo "13 / 4 = $(( 13 /4 )) reste $(( 13 % 4 ))"
+                13 / 4 = 3 reste 1
+            </pre>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Filename expansion</a></h2>
+            <p>After word splitting, unless the -f option has been set (see The Set Builtin), Bash scans each word for the characters ‘*’, ‘?’, and ‘[’. If one of these characters appears, and is not quoted,
+            then the word is regarded as a pattern, and replaced with an alphabetically sorted list of filenames matching the pattern</p>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Filename expansion - Quizz</a></h2>
+            <pre>
+uidn4221@io:~/dev/trainings-linux$ touch tot{e,i,o touch tot{o,e,i}{a,e,i,o,u,y}
+uidn4221@io:~/dev/trainings-linux$ ls tot*
+tote  totea  totee  totei  toteo  toteu  totey  toti  totia  totie  totii  totio  totiu  totiy  toto  totoa  totoe  totoi  totoo  totou  totoy  totu
+            </pre>
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">how to get all toti files>
+                <ul>
+                    <li class="fragment fade-in"><pre>ls toti*</pre></li>
+                </ul></li>
+                <li class="fragment fade-in">how to get all files containing toti and tote
+                <ul>
+                    <li class="fragment fade-in"><pre>ls tot[i,e]*</pre></li>
+                </ul></li>
+                <li class="fragment fade-in">how to get all files with 4 characters only
+                <ul>
+                    <li class="fragment fade-in"><pre>ls tot?</pre></li>
+                </ul></li>
+            </ul>
+    </section>
+
 
 
 	<section>
