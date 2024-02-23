@@ -268,7 +268,7 @@ uidn4221@io:~/dev/trainings-linux$ ls tot*
 tote  totea  totee  totei  toteo  toteu  totey  toti  totia  totie  totii  totio  totiu  totiy  toto  totoa  totoe  totoi  totoo  totou  totoy  totu
             </pre>
             <ul  class="r-fit-text" style="width:100%">
-                <li class="fragment fade-in">how to get all toti files>
+                <li class="fragment fade-in">how to get all toti files
                 <ul>
                     <li class="fragment fade-in"><pre>ls toti*</pre></li>
                 </ul></li>
@@ -276,49 +276,157 @@ tote  totea  totee  totei  toteo  toteu  totey  toti  totia  totie  totii  totio
                 <ul>
                     <li class="fragment fade-in"><pre>ls tot[i,e]*</pre></li>
                 </ul></li>
-                <li class="fragment fade-in">how to get all files with 4 characters only
+                <li class="fragment fade-in">how to get all files finishing by "e" vowel with 5 letters
                 <ul>
-                    <li class="fragment fade-in"><pre>ls tot?</pre></li>
+                    <li class="fragment fade-in"><pre>ls tot?e</pre></li>
                 </ul></li>
             </ul>
     </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection</a></h2>
+            <p>Before  a command is executed, its input and output may be redirected using a special notation interpreted by the shell.  Redirection allows com‐
+                mands' file handles to be duplicated, opened, closed, made to refer to different files, and can change the files the command  reads from and
+                writes  to.  Redirection may also be used to modify file handles in the current shell execution environment. The following redirection operators
+                may precede or appear anywhere within a simple command or may follow a command.  Redirections are processed in the order they appear,  from  left
+                to right.</p>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - default behavior</a></h2>
+            By default a command:
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">Get its input from /dev/stdin (0)</li>
+                <li class="fragment fade-in">Writes its output to /dev/stdout (1)</li>
+                <li class="fragment fade-in">Writes its error to /dev/stderr (2)</li>
+            </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - Good to know</a></h2>
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">When you write a program you must only write to stdout the command result
+                    and log to /dev/stderr. That allow you to use the program in other scripts. (ex: uname)</li>
+                <li class="fragment fade-in">Most of terminal display both stdout and stderr.</li>
+                <li class="fragment fade-in">If the redirector start by '>' this refer to the standard output.</li>
+            </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - </a></h2>
+        <div class="r-fit-text" style="width: 100%;">
+            <p>Redirections are processed in the order they appear, from  left to right.</p>
 
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">the command<pre>ls > dirlist 2>&1</pre>directs both standard output and standard error to the file dirlist, while the command</li>
+                <li class="fragment fade-in">the command<pre>ls 2>&1 > dirlist</pre>directs only the standard output to file dirlist, because the standard error was duplicated from the standard output before the  standard  output 
+                    was redirected to dirlist.</li>
+                <li class="fragment fade-in">the command<pre>&>word</pre> and <pre>>&word</pre> Of the two forms, the first is preferred.  This is semantically equivalent to <pre> >word 2>&1</pre></li>
+                <li class="fragment fade-in">The format for appending standard output and standard error is: <pre>&>>word</pre> This is semantically equivalent to <pre>>>word 2>&1</pre></li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - Will it be sent? :)</a></h2>
+        <div class="r-fit-text" style="width: 100%;">
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">We open a udp port<pre>nc -klu localhost 9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto >/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto2 1>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto3 2>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto4 >&2 2>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto5 1>&2 2>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto6 2>/dev/udp/localhost/9000 1>&2</pre></li>
+                <li class="fragment fade-in"><pre>echo toto7 2>/dev/udp/localhost/9000 >&2</pre></li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Execute command</a></h2>
+        <div class="r-fit-text" style="width: 100%;">
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">It locate the command to execute and start it. The command is placed as argument as $0.</li>
+                <li class="fragment fade-in">It set the local environment, traps, umask creation...</li>
+                <li class="fragment fade-in">After running it returns an exit status.</li>
+            </ul>
 
+            <p class="fragment fade-in">To check a program exit status. You can check the value of $? parameter. 127 means not found, 126 means found but not executable.
+            0 means success and other values are errors.</p>
+            <pre class="fragment fade-in">
+uidn4221@io:~/dev/trainings-linux$ ls toto*
+toto  totoa  totoe  totoi  totoo  totou  totoy
+uidn4221@io:~/dev/trainings-linux$ echo $?
+0
+            </pre>
 
+        </div>
+    </section>
+</section>
+
+<!--Best Practices-->
+<section>
 	<section>
-        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Scripting</a></h2>
-
-        <p>Files containing commands can be created, and become commands themselves. These new commands have the
-        same status as system commands in directories such as /bin, allowing users or groups to establish custom
-        environments to automate their common tasks.</p>    
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Best Practices</a></h2>
     </section>
 	<section>
-        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Interactivity</a></h2>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Start with an explicit Shebang</a></h2>
 
-        <p>Shells may be used interactively or non-interactively. In interactive mode, they accept input typed from the keyboard. When executing
-        non-interactively, shells execute commands read from a file.</p>
+        <p>The shebang specify the interpreter you want to use to interprete lines.</p>
+        <pre>
+            #!/bin/bash
+        </pre>
+        <p>Note it exists a lot of interpreters. It could be anything that is able to interprete the lines in the file.</p>
     </section>
-	<section>
-        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Execution types</a></h2>
 
-        <p>A shell allows execution of GNU commands, both synchronously and asynchronously. The shell waits for synchronous commands
-        to complete before accepting more input; asynchronous commands continue to execute in parallel with the shell while it reads
-        and executes additional commands. The redirection constructs permit fine-grained control of the input and output of those commands.
-        Moreover, the shell allows control over the contents of commands’ environments.</p>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Use set -euo pipefail</a></h2>
+
+        <div class="r-fit-text" style="width: 100%;">
+            <ul class="r-fit-text">
+                <li class="fragment fade-in">-e: when this option is on, if a simple command fails for any reason, the shell shall immediately exit, unless the simple command is followed by an && or ||, or is the command immediately following an if or while command, or the command immediately following a pipeline, a list, or a compound command.</li>
+                <li class="fragment fade-in">-u: this will cause the program to automatically exit when an undefined variable is referenced.</li>
+                <li class="fragment fade-in">-o pipefail: the return value of a pipeline is the status of the last command to exit with a non-zero status, or zero if no command exited with a non-zero status</li>
+            </ul>
+            <div class="fragment fade-in" style="width:100%">
+                <pre>
+#!/bin/bash
+set -euo pipefail
+
+echo toto
+false
+echo toto2
+                </pre>
+            </div>
+            <div class="fragment fade-in" style="width:100%">
+                <span style="text-align:left">will produce:</span>
+            </div>
+            <div class="fragment fade-in" style="width:100%">
+                <pre>
+uidn4221@io:~/dev/trainings-linux$ ./bash/false.sh || echo $?
+toto
+1
+              </pre>
+           </div>
+        </div>
     </section>
-	<section>
-        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Builtins</a></h2>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Use set -euo pipefail</a></h2>
 
-        <p>Shells also provide a small set of built-in commands (builtins) implementing functionality impossible or inconvenient to obtain
-        via separate utilities.For example, cd, break, continue, and exec cannot be implemented outside of the shell because they directly
-        manipulate the shell itself. The history, getopts, kill, or pwd builtins, among others, could be implemented in separate utilities,
-        but they are more convenient to use as builtin commands.</p>
-    </section>
-	<section>
-        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Programming Language</a></h2>
+        <div class="r-fit-text" style="width: 100%;">
+            <ul class="r-fit-text">
+                <li class="fragment fade-in">Describe each command in a dedicated method</li>
+                <li class="fragment fade-in">You can use shellcheck <pre>sudo apt install shellcheck</pre></li>
+                <li class="fragment fade-in">Initiate current working directory to workno matter you launch the script</li>
+            </ul>
+            <div class="fragment fade-in" style="width:100%">
+                <pre>
+#!/bin/bash
+set -euo pipefail
+W="$(dirname $(realpath $0))"
 
-        <p>While executing commands is essential, most of the power (and complexity) of shells is due to their embedded programming languages. Like any high-level language, the shell provides variables,
-        flow control constructs, quoting, and functions.</p>
+echo $W
+
+ls ${W}/false_no_fail.sh
+echo $?
+                </pre>
+            </div>
+        </div>
     </section>
 </section>
 </div>
