@@ -418,11 +418,8 @@ toto
                 <pre>
 #!/bin/bash
 set -euo pipefail
-W="$(dirname $(realpath $0))"
 
-echo $W
-
-ls ${W}/false_no_fail.sh
+ls ./false_no_fail.sh
 echo $?
                 </pre>
             </div>
