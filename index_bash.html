@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+    <style type="text/css">
+      p { text-align: left; }
+      .folders {
+        border: 1px solid white;
+      }
+    </style>
+	</head>
+	<body>
+<div class="reveal">
+<div class="slides">
+<section>
+	<section>
+   	    <h1>Bash training</h1>
+	</section>
+	<section>
+   	    <h2>Why this presentation?</h2>
+        <ul>
+            <li>After the Linux FHS presentation people wanted to learn concrete things.</li>
+            <li>This will help people to write scripts.</li>
+            <li>This presentation is for beginners and intermediate people who have some skills.</li>
+        </ul>
+    </section>
+	<section>
+        <h2>Main References:</h2>
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)" target="_blank">Wikipedia bash</a></li>
+            <li><a href="https://www.gnu.org/software/bash/" target="_blank">Bash Official page</a></li>
+            <li><a href="https://tiswww.case.edu/php/chet/bash/bashref.html" target="_blank">Bash Official documentation</a></li>
+            <li><a href="https://github.com/ewae121/wiki.bash-hackers.org" target="_blank">Dokuwiki bash Hackers(doesn't exist anymore)</a></li>
+        </ul>
+    </section>
+</section>
+
+<section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/" target="_blank">What is Bash?</a></h2>
+    </section>
+	<section>
+    	<h2>Question:</h2>
+        <div class="fragment fade-in">
+        	<p>What is bash?</p>
+            <ul style="width:100%;text-align:left">
+                <li>A terminal to type commands</li>
+                <li>A command language interpreter</li>
+                <li>A shell</li>
+                <li>An interpreted language</li>
+            </ul>
+        </div>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is Bash - Official documentation 1/2</a></h2>
+
+        <p>Bash is the shell, or command language interpreter, for the GNU operating system. The name is an acronym for the ‘Bourne-Again SHell’, a pun on Stephen Bourne, the author of the direct ancestor of the current Unix shell sh, which appeared in the Seventh Edition Bell Labs Research version of Unix.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is Bash - Official documentation 2/2</a></h2>
+
+        <p><ul>
+            <li class="fragment fade-in">Bash is largely compatible with sh and incorporates useful features from ksh and csh.</li>
+            <li class="fragment fade-in">Bash is intended to be a conformant implementation of the IEEE POSIX Shell.</li>
+            <li class="fragment fade-in">Bash offers functional improvements over sh for both interactive and programming use.</li>
+            <li class="fragment fade-in">Bash is often the default shell for GNU Operating System.</li>
+        </ul></p>
+    </section>
+</section>
+</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script src="plugin/zoom/zoom.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+	});
+</script>
+</body>
+
+</html>

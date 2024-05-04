@@ -20,1103 +20,456 @@
     </style>
 	</head>
 	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-				  <section>
-            <h1>Linux Training</h1>
-				  </section>
-				  <section>
-            <h2>Why this presentation?</h2>
-            <ul>
-              <li>It is a preambule for a kernel presentation.</li>
-              <li>It is more important to understand how things works than knowing specific commands to solve issues.</li>
-              <li>It describes the way of doing well in computer sciences.</li>
+<div class="reveal">
+<div class="slides">
+
+<!--Introduction-->
+<section>
+	<section>
+   	    <h1>Bash training</h1>
+	</section>
+	<section>
+   	    <h2>Why this presentation?</h2>
+        <ul>
+            <li>After the Linux FHS presentation people wanted to learn concrete things.</li>
+            <li>This will help people to write scripts.</li>
+            <li>This presentation is for beginners and intermediate people who have some skills.</li>
+        </ul>
+    </section>
+	<section>
+        <h2>Main References:</h2>
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)" target="_blank">Wikipedia bash</a></li>
+            <li><a href="https://www.gnu.org/software/bash/" target="_blank">Bash Official page</a></li>
+            <li><a href="https://tiswww.case.edu/php/chet/bash/bashref.html" target="_blank">Bash Official documentation</a></li>
+            <li><a href="https://github.com/ewae121/wiki.bash-hackers.org" target="_blank">Dokuwiki bash Hackers(doesn't exist anymore)</a></li>
+        </ul>
+    </section>
+</section>
+
+<!--What is bash-->
+<section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/" target="_blank">What is Bash?</a></h2>
+    </section>
+	<section>
+    	<h2>Question:</h2>
+        <div class="fragment fade-in">
+        	<p>What is bash?</p>
+            <ul style="width:100%;text-align:left">
+                <li>A terminal to type commands</li>
+                <li>A command language interpreter</li>
+                <li>A shell</li>
+                <li>An interpreted language</li>
             </ul>
-          </section>
-        </section>
+        </div>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is Bash - Official documentation 1/2</a></h2>
 
-				<section>
-				  <section>
-            <h2><a href="pages/operating_system/operating_system.html" target="_blank">Operating system</a></h2>
-          </section>
-				  <section>
-            <a href="pages/operating_system/operating_system.html" target="_blank">What is an Operating System?</a>
-            <p class="fragment fade-in">Main points:</p>
-            <ul>
-              <li class="fragment fade-in">An Operating System provides a Kernel, Services and applications to use an Hardware.</li>
-              <li class="fragment fade-in">All Operating Systems are not equivalent and can adopt different strategies to achieve different goals.</li>
+        <p>Bash is the shell, or command language interpreter, for the GNU operating system. The name is an acronym for the ‘Bourne-Again SHell’, a pun on Stephen Bourne, the author of the direct ancestor of the current Unix shell sh, which appeared in the Seventh Edition Bell Labs Research version of Unix.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is Bash - Official documentation 2/2</a></h2>
+
+        <p><ul>
+            <li class="fragment fade-in">Bash is largely compatible with sh and incorporates useful features from ksh and csh.</li>
+            <li class="fragment fade-in">Bash is intended to be a conformant implementation of the IEEE POSIX Shell.</li>
+            <li class="fragment fade-in">Bash offers functional improvements over sh for both interactive and programming use.</li>
+            <li class="fragment fade-in">Bash is often the default shell for GNU Operating System.</li>
+        </ul></p>
+    </section>
+</section>
+
+<!--What is a shell-->
+<section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-a-shell_003f" target="_blank">What is a Shell?</a></h2>
+    </section>
+	<section>
+    	<h2>Question:</h2>
+        <div class="fragment fade-in">
+        	<p>What is Unix shell?</p>
+            <ul style="width:100%;text-align:left">
+                <li>A command interpreter</li>
+                <li>A programming language</li>
+                <li>A macro processor</li>
             </ul>
-          </section>
-				  <section>
-            <a href="pages/operating_system/operating_system.html" target="_blank">Operating System Placement</a>
-            <div class="r-stack">
-              <img src="pages/operating_system/Operating_system_placement.svg.png"></img>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/operating_system/operating_system.html" target="_blank">Examples of different types of Operating Systems</a>
-            <p><ul>
-              <li class="fragment fade-in">Single/Multi tasks</li>
-              <li class="fragment fade-in">Single/Multi users</li>
-              <li class="fragment fade-in">Distributed</li>
-              <li class="fragment fade-in">Embedded</li>
-              <li class="fragment fade-in">Real-time</li>
-            </ul></p>
-          </section>
-				  <section>
-            <a href="pages/operating_system/operating_system.html" target="_blank">Operating Systems components</a>
-            <p><ul>
-              <li class="fragment fade-in">The Kernel</li>
-              <li class="fragment fade-in">The User Space</li>
-            </ul></p>
-            <div class="fragment" class="r-stack">
-              <img src="pages/operating_system/Kernel_Layout.svg.png"></img>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/operating_system/operating_system.html" target="_blank">Operating System - The Kernel tasks</a>
-            <p><ul>
-              <li class="fragment fade-in">Memory management</li>
-              <li class="fragment fade-in">Services as processus communication(IPC), processus scheduling, networking, security...</li>
-              <li class="fragment fade-in">Devices Management</li>
-            </ul></p>
-          </section>
-				  <section>
-            <a href="pages/operating_system/operating_system.html" target="_blank">Operating System - The User Space</a>
-            <p><ul>
-              <li class="fragment fade-in">Means all is not running in the Kernel Space as User applications, OS daemons/services...</li>
-              <li class="fragment fade-in">Each process runs in its own virtual memory space.</li>
-              <li class="fragment fade-in">Cannot access to other process memory.</li>
-            </ul></p>
-          </section>
-        </section>
+        </div>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-a-shell_003f" target="_blank">What is a Shell? Historic</a></h2>
 
-				<section>
-				  <section>
-            <h2><a href="pages/linux_intro/linux.html" target="_blank">Linux Introduction</a></h2>
-          </section>
-				  <section>
-            <a href="pages/linux_intro/linux.html" target="_blank">What is Linux?</a>
-            <p><span class="fragment fade-in">Linux is a family of <strong>open-source Unix-like operating systems</strong> based on the Linux kernel.</span><span class="fragment fade-in"> Linux is typically packaged as a Linux distribution, which includes the kernel and supporting system software and libraries, many of which are provided by the <strong>GNU Project</strong>.</span></p>
-          </section>
-				  <section>
-            <a href="pages/linux_intro/linux.html" target="_blank">Linux history</a>
-            <div class="r-fit-text">
-            <p><ul>
-              <li class="fragment fade-in">1969 AT&T - Unix in assembly</li>
-              <li class="fragment fade-in">1971 Unix first release</li>
-              <li class="fragment fade-in">1973 Rewrite in C by Dennis Ritchie except some IO routines</li>
-            </ul></p>
-            <p><ul>
-              <li class="fragment fade-in">1983 GNU Project by Richard Stallman - complete unix compatible</li>
-              <li class="fragment fade-in">1985 Free Software Foundation</li>
-            </ul></p>
-            <p><ul>
-              <li class="fragment fade-in">1990 - Linus enroll a Unix course</li>
-              <li class="fragment fade-in">1991, July 3rd - attempt to get POSIX standard documentation</li>
-              <li class="fragment fade-in">Found info with Minix which is a clone of Unix. He start coding Linux kernel on Minix. Then he switch the license to the GNU GPL project.</li>
-              <li class="fragment fade-in">Linux was first released on September 17, 1991, by Linus Torvalds.</li>
-            </ul></p>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_intro/linux.html" target="_blank">Linux design</a>
-            <div class="r-stack">
-              <img src="pages/linux_intro/Linux_design.png"></img>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_intro/linux.html" target="_blank">Linux main elements</a>
-            <p><ul>
-              <li class="fragment fade-in">The Bootloader as GNU GRUB, LILO, SYSLINUX</li>
-              <li class="fragment fade-in">The init program as sysvinit, systemd, upstart</li>
-              <li class="fragment fade-in">The Package management system as tarballs, rpm or dpkg</li>
-              <li class="fragment fade-in">Software libraries, CStandard library</li>
-              <li class="fragment fade-in">Basic Unix commands</li>
-              <li class="fragment fade-in">User interface programs</li>
-            </ul></p>
-          </section>
-        </section>
+        <p>At its base, a shell is simply a macro processor that executes commands. The term macro processor means functionality where text and symbols are expanded to create larger expressions.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Features</a></h2>
 
-				<section>
-				  <section>
-            <h2><a href="pages/linux_distributions/distributions.html" target="_blank">Linux Distributions</a></h2>
-          </section>
-				  <section>
-            <a href="pages/linux_distributions/distributions.html" target="_blank">What is a Linux Distribution?</a>
-            <div class="r-fit-text">
-            <p><b>A Linux distribution(often abbreviated as distro) is an operating system made from a software collection that includes the Linux kernel, and often a package management system.</b></p>
-            <p>A Linux distribution may also be <b>described as a particular assortment of application and utility software (various GNU tools and libraries, for example), packaged with the Linux kernel in such a way that its capabilities meet many users' needs.</b></p>
-            <p><b>very few packages are actually written by a distribution's maintainers.</b></p>
-            <p><b>Almost one thousand Linux distributions exist.</b></p>
-            </div>
-          </section>
+        <p>A Unix shell is both a command interpreter and a programming language.</p>    
+        <ul>
+            <li class="fragment fade-in">As a command interpreter, the shell provides the user interface to the rich set of GNU utilities.</li>
+            <li class="fragment fade-in">The programming language features allow these utilities to be combined.</li>
+        </ul>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Scripting</a></h2>
 
-				  <section>
-            <a href="pages/linux_distributions/distributions.html" target="_blank">Distro watch Periodic table</a>
-            <img src="pages/linux_distributions/linux_distribution_periodic_table.png"></img>
-          </section>
+        <p>Files containing commands can be created, and become commands themselves. These new commands have the
+        same status as system commands in directories such as /bin, allowing users or groups to establish custom
+        environments to automate their common tasks.</p>    
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Interactivity</a></h2>
 
-				  <section>
-            <a href="pages/linux_distributions/distributions.html" target="_blank">Main Distro types</a>
-            <p><ul>
-              <li class="fragment fade-in">Standard distros: Debian, Ubuntu, Fedora, Suse, Arch Linux, Gentoo...</li>
-              <li class="fragment fade-in">Linux Kernel based Operating System: Android, ChromeOS...</li>
-              <li class="fragment fade-in">Lightweight distributions: Puppy Linux, Slitaz...</li>
-              <li class="fragment fade-in">Target specific: OpenWrt for routers, Kodi for Home Theater PC, SteamOS for Gaming, Edubuntu for Education, Tails, Qubes... Privacy and Anonymity, Endless OS for Offline use, Black Arch, Kali for Pentesting, Security....</li>
-            </ul></p>
-          </section>
+        <p>Shells may be used interactively or non-interactively. In interactive mode, they accept input typed from the keyboard. When executing
+        non-interactively, shells execute commands read from a file.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Execution types</a></h2>
 
-				  <section>
-            <a href="pages/linux_distributions/distributions.html" target="_blank">Linux Distributions - Examples Kubuntu</a>
+        <p>A shell allows execution of GNU commands, both synchronously and asynchronously. The shell waits for synchronous commands
+        to complete before accepting more input; asynchronous commands continue to execute in parallel with the shell while it reads
+        and executes additional commands. The redirection constructs permit fine-grained control of the input and output of those commands.
+        Moreover, the shell allows control over the contents of commands’ environments.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Builtins</a></h2>
 
-            <div class="r-stack">
-              <img src="pages/linux_distributions/sc_kubuntu.png"></img>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_distributions/distributions.html" target="_blank">Linux Distributions - Examples Linux Mint</a>
+        <p>Shells also provide a small set of built-in commands (builtins) implementing functionality impossible or inconvenient to obtain
+        via separate utilities.For example, cd, break, continue, and exec cannot be implemented outside of the shell because they directly
+        manipulate the shell itself. The history, getopts, kill, or pwd builtins, among others, could be implemented in separate utilities,
+        but they are more convenient to use as builtin commands.</p>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html" target="_blank">What is a Shell - Programming Language</a></h2>
 
-            <div class="r-stack">
-              <img src="pages/linux_distributions/sc_mint.png"></img>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_distributions/distributions.html" target="_blank">Linux Distributions - Examples Black Arch</a>
+        <p>While executing commands is essential, most of the power (and complexity) of shells is due to their embedded programming languages. Like any high-level language, the shell provides variables,
+        flow control constructs, quoting, and functions.</p>
+    </section>
+</section>
 
-            <div class="r-stack">
-              <img src="pages/linux_distributions/sc_blackarch.png"></img>
-            </div>
-          </section>
+<!--Shell operation-->
+<section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">How work a Shell?</a></h2>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Read input</a></h2>
 
-				  <section>
-            <a href="pages/linux_distributions/distributions.html" target="_blank">Linux Distributions - Examples Kodi</a>
+        <p>Reads its input:</p>
+        <ul>
+            <li class="fragment fade-in">from the user’s terminal.<pre>echo toto</pre></li>
+            <li class="fragment fade-in">from a string supplied as an argument to the -c invocation option (see Invoking Bash)<pre>bash -c "echo toto"</pre></li>
+            <li class="fragment fade-in">from a file (see Shell Scripts)<pre>echo "echo toto" > script && bash script</pre></li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Parse tokens</a></h2>
 
-            <div class="r-stack">
-              <img src="pages/linux_distributions/sc_kodi.png"></img>
-            </div>
-          </section>
-        </section>
+        <p>Breaks the input into words and operators, obeying the quoting rules described in Quoting. These tokens are separated by metacharacters. Alias expansion is performed by this step</p>
+        <ul>
+            <li class="fragment fade-in">metacharacters list is: <pre>space, tab, newline, ‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, ‘>’</pre></li>
+            <li class="fragment fade-in">defined alias list can be displayed using: <pre>alias -p</pre></li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Make command(s)</a></h2>
 
-				<section>
-				  <section>
-            <h2><a href="pages/linux_documentation/documentation.html" target="_blank">Linux documentation</a></h2>
-          </section>
-				  <section>
-            <a href="pages/linux_documentation/documentation.html" target="_blank">What to know about documentation</a>
-            <p class="fragment fade-in">Linux is extremly well documented in most of cases.</p>
-            <p class="fragment fade-in">The documentation is available with the man command. "Man" stand for "Manual".</p>
-            <p class="fragment fade-in">Manpages are located in the folder: /usr/share/man in ubuntu.</p>
-            <p class="fragment fade-in">To save the planet please use the <b>man command</b> rather than Google searches</p>
-          </section>
-				  <section>
-            <a href="pages/linux_documentation/documentation.html" target="_blank">"man" command examples</a>
-            <div class="r-fit-text">
-            <table>
-              <tr><td><b>ls man page:</b></td><td><code>man ls</code></td></tr>
-              <tr><td><b>string man page (section 3):</b></td><td><code>man 3 string</code></td></tr>
-              <tr><td><b>intro man pages (all sections):</b></td><td><code>man -a intro</code></td></tr>
-              <tr><td><b>all man pages containing printf in short description:</b></td><td><code>man -k printf</code><tr/>
-            </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_documentation/documentation.html" target="_blank">"whatis" command examples</a>
-            <div class="r-fit-text">
-            <table class="r-stack">
-              <tr><td><b>all available passwd man pages:</b></td><td><code>whatis passwd</code></td></tr>
-              <tr><td><b>all available pass* man pages:</b></td><td><code>whatis -w pass*</code></td></tr>
-            </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_documentation/documentation.html" target="_blank">Navigate in manpages</a>
-            <div class="r-fit-text">
-            <table>
-              <tr><td>"q"</td><td>to quit the manual</td></tr>
-              <tr><td>"g"</td><td>Go to the top of the manual</td></tr>
-              <tr><td>"G"</td><td>Go to the end of the manual</td></tr>
-              <tr><td>"/"</td><td>Regex to find then navigate with <b>"n"</b> to next element and <b>"N"</b> to the previous element.</td></tr>
-            </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_documentation/documentation.html" target="_blank">Manpages sections</a>
-            <div class="r-fit-text">
-            <table>
-              <tbody>
-                <tr><th>Section</th><th>Description</th><th>example</th></tr>
-                <tr><td>1</td><td>General commands</td><td>man ls</td></tr>
-                <tr><td>2</td><td>System calls</td><td>man 2 fork</td></tr>
-                <tr><td>3</td><td>functions, covering in particular the C standard library</td><td>man 3 string</td></tr>
-                <tr><td>4</td><td>Special files (usually devices, those found in /dev) and drivers</td><td>man 4 tty</td></tr>
-                <tr><td>5</td><td>File formats and conventions</td><td>man 5 passwd</td></tr>
-                <tr><td>6</td><td>Games and screensavers</td><td>man 6 kpat</td></tr>
-                <tr><td>7</td><td>Miscellaneous</td><td>man 7 inode</td></tr>
-                <tr><td>8</td><td>System administration commands and daemons</td><td>man 8 ld.so</td></tr>
-              </tbody>
-            </table>
-            </div>
-          </section>
-        </section>
-
-				<section>
-				  <section>
-            <h2><a href="pages/linux_filesystem/fs.html" target="_blank">Linux file system</a></h2>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Data Storage devices</a>
-            <p>Linux Data storage can be hard drive, floppy disk, SCSI drive, optical drive, USB Keys. All of them are block devices in /dev.</p>
-            <div class="r-fit-text fragment fade-in">
-              <table>
-                <tr><td>NVMe Controllers</td><td>First controller nvme0 then Second controller nvme1...</td><td>PCI express controller</td></tr>
-                <tr><td>SCSI Controllers</td><td>First controller /dev/sda, then /dev/sdb, /dev/sdc, /dev/sdd...</td><td>Hard drives, usb keys</td></tr>
-                <tr><td>MMC Controllers</td><td>First controller /dev/mmcblk0, then /dev/mmcblk1...</td><td>internal MMC memory</td></tr>
-                <tr><td>IDE Controllers</td><td>Primary controller /dev/hda, Secondary controller /dev/hdb</td><td>IDE hard Drive, CDROM drives</td></tr>
-                <tr><td>Floppy disk Controllers</td><td>First controller /dev/fd0, then /dev/fd1</td><td>floppy disks</td></tr>
-              </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Storage devices Partioning</a>
-            <p>All those devices can be divided into partitions. They will be named differently depending the device type:</p>
-            <ul>
-              <li>for the SATA disk 0 /dev/sda, it will be /dev/sda1, /dev/sda2...</li>
-              <li>for IDE disks, it will be /dev/hda1, /dev/hdb1...</li>
-              <li>for NVME disk /dev/nvme0n1, it will be /dev/nvme0n1p1, /dev/nvme0n1p2...</li>
-            </ul>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Partition types</a>
-            <div class="r-fit-text">
-            <p>There are three types of partitions with which you will be dealing; Primary, Extended, and Logical partitions.</p>
-            <ul>
-              <li class="fragment fade-in" >The primary partition has a unique FS Type. It is often the main partition to boot an OS. You can have only 4 primary partitions. If you need more partitions you can create an extended partition.</li>
-              <li class="fragment fade-in">The extended partition is simply a special partion that will contain logical partitions.</li>
-              <li class="fragment fade-in">The logical partition is a sub division of the extended partition and will be detected as block devices in /dev. fdisk support 56 extended partitions.</li>
-            </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Storage devices Partioning - GUI</a>
-
-            <div class="r-stack">
-              <img src="pages/linux_filesystem/partitions_kde.png"></img>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Block Device Information</a>
-
-            <div class="r-fit-text">
-            <p>The lsblk command:</p>
-  <pre>
-$ lsblk -T -f /dev/nvme0n1
-  </pre>
-  <pre class="fragment fade-in">
-NAME        FSTYPE FSVER LABEL      UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
-nvme0n1                                                                                 
-├─nvme0n1p1 vfat   FAT32 SYSTEM_DRV 948D-8E86                             222,6M    13% /boot/efi
-├─nvme0n1p2                                                                             
-├─nvme0n1p3 ntfs                    4004C09704C09178                                    
-├─nvme0n1p4 ntfs         WINRE_DRV  463A8E953A8E8223                                    
-├─nvme0n1p5 ext4   1.0              2c2727a7-7b03-4c50-b4bf-8f1a5d26ecb0    5,8G    75% /var/snap/firefox/common/host-hunspell
-│                                                                                       /
-└─nvme0n1p6 ext4   1.0              f1447f37-47d6-44d1-80d5-08df7a27c356   14,4G    89% /home
-  </pre>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Block Device Information</a>
-
-            <div class="r-fit-text">
-            <p>The fdisk command:</p>
-  <pre>
-$ sudo fdisk -l
-  </pre>
-  <pre class="fragment fade-in">
-Disk /dev/nvme0n1: 476,94 GiB, 512110190592 bytes, 1000215216 sectors
-Disk model: SAMSUNG MZVLB512HAJQ-000L2              
-Units: sectors of 1 * 512 = 512 bytes
-Sector size (logical/physical): 512 bytes / 512 bytes
-I/O size (minimum/optimal): 512 bytes / 512 bytes
-Disklabel type: gpt
-Disk identifier: 6A872365-FA9C-4F7D-87F9-4ACD391EB6A5
-
-Device             Start        End   Sectors   Size Type
-/dev/nvme0n1p1      2048     534527    532480   260M EFI System
-/dev/nvme0n1p2    534528     567295     32768    16M Microsoft reserved
-/dev/nvme0n1p3    567296  383766527 383199232 182,7G Microsoft basic data
-/dev/nvme0n1p4 998166528 1000214527   2048000  1000M Windows recovery environment
-/dev/nvme0n1p5 383766528  445206527  61440000  29,3G Linux filesystem
-/dev/nvme0n1p6 445206528  998166527 552960000 263,7G Linux filesystem
-  </pre>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Partition usage information</a>
-
-            <div class="r-fit-text">
-            <p>The df command:</p>
-  <pre>
-$ df -h
-  </pre>
-  <pre class="fragment fade-in">
-Filesystem      Size  Used Avail Use% Mounted on
-tmpfs           768M  2,1M  765M   1% /run
-/dev/nvme0n1p5   29G   22G  5,7G  80% /
-tmpfs           3,8G  105M  3,7G   3% /dev/shm
-tmpfs           5,0M  4,0K  5,0M   1% /run/lock
-/dev/nvme0n1p6  259G  230G   17G  94% /home
-/dev/nvme0n1p1  256M   35M  222M  14% /boot/efi
-tmpfs           768M   72K  767M   1% /run/user/1000
-tmpfs           3,8G     0  3,8G   0% /run/qemu
-  </pre>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">File System</a>
-            <div class="r-fit-text">
-            <p class="fragment fade-in">In computing, a file system or filesystem (often abbreviated to fs) is a method and data structure that the operating system uses to control how data is stored and retrieved. Without a file system, data placed in a storage medium would be one large body of data with no way to tell where one piece of data stopped and the next began, or where any piece of data was located when it was time to retrieve it. By separating the data into pieces and giving each piece a name, the data are easily isolated and identified.</p>
-            <p class="fragment fade-in">There are many kinds of file systems, each with unique structure and logic, properties of speed, flexibility, security, size and more. Some file systems have been designed to be used for specific applications. For example, the ISO 9660 and UDF file systems are designed specifically for optical discs.</p>
-            <p class="fragment fade-in">Some file systems are used on local data storage devices; others provide file access via a network protocol (for example, NFS, SMB, or 9P clients). Some file systems are "virtual", meaning that the supplied "files" (called virtual files) are computed on request (such as procfs and sysfs) or are merely a mapping into a different file system used as a backing store. The file system manages access to both the content of files and the metadata about those files. It is responsible for arranging storage space; reliability, efficiency, and tuning with regard to the physical storage medium are important design considerations.</p>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">File System - Microsoft</a>
-            <div class="r-fit-text fragment fade-in">
-              <table>
-                <tr><th>Name</th><th>Year</th><th>Properties</th></tr>
-                <tr><td>FAT</td><td>1977</td><td>Max volume size: 2-4GB, Max file size: 2-4GB, Max br of files: 65460, filename: 8.3 characters</td></tr>
-                <tr><td>FAT 32</td><td>1996</td><td>Max vol size: 2TB, Max file size: 2-4(LFS)GB, Max br of files: 268,173,300, filename: 8.3 then 255(LFN-vFAT 1995)</td></tr>
-                <tr><td>ExFAT</td><td>2006</td><td>Max vol size: 128PB, Max file size: 128PB, 255 characters, date resolution 10ms, date range: 1980-2107/12/31, ACL windows CE 6 only</td></tr>
-                <tr><td>NTFS</td><td>1993</td><td>Max Vol size: 256TB, ACL, date resolution: 100ns, date range: 1601-28 May 60056</td></tr>
-              </table>
-            </div>
-            <p class="fragment fade-in">All those file systems can be accessed in Read/Write by Linux.</p>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">File System - Unix(UFS)</a>
-            <div class="r-fit-text">
-            <p>The Unix file system (UFS) is a family of file systems supported by many Unix and Unix-like operating systems.</p>
-            <div class="fragment fade-in">
-              <p>A UFS volume is composed of the following parts:<p>
-              <ul>
-                <li class="fragment fade-in">A few blocks at the beginning of the partition reserved for boot blocks (which must be initialized separately from the filesystem)</li>
-                <li class="fragment fade-in">A superblock, containing a magic number identifying this as a UFS filesystem, and some other vital numbers describing this filesystem's geometry and statistics and behavioral tuning parameters</li>
-                <li class="fragment fade-in">A collection of cylinder groups. Each cylinder group has the following components:</li>
-                <ul>
-                  <li class="fragment fade-in">A backup copy of the superblock</li>
-                  <li class="fragment fade-in">A cylinder group header, with statistics, free lists, etc., about this cylinder group, similar to those in the superblock</li>
-                  <li class="fragment fade-in">A number of inodes, each containing file attributes</li>
-                  <li class="fragment fade-in">A number of data blocks</li>
-                </ul>
-              </ul>
-            </div>
-            <p class="fragment fade-in">Directory files contain only the list of filenames in the directory and the inode associated with each file. All file metadata are kept in the inode. You can see this mapping thanks to <code>ls -i</code> command</p>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">File System - Unix(UFS)</a>
-            <div class="r-stack">
-              <p>
-                <img src="pages/linux_filesystem/cylinder_groups.PNG"></img>
-              </p>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">UFS File System - Well known</a>
-            <div class="r-fit-text fragment fade-in">
-              <table>
-                <tr><th>Name</th><th>Year</th><th>Properties</th></tr>
-                <tr><td>Ext 2</td><td>1993</td><td>Max volume size: 2-32TB, Max file size: 16GB-2TB, filename: 255 characters, no journaling</td></tr>
-                <tr><td>Ext 3</td><td>2001</td><td>journaling, slower than XFS, ReiserFS, ext4 but consume less CPU</td></tr>
-                <tr><td>Ext 4</td><td>2008</td><td>Backward compatible. Faster, more reliable.</td></tr>
-                <tr><td>XFS</td><td>1994</td><td>High Performance</td></tr>
-                <tr><td>ZFS</td><td>2009</td><td>128 bits fs,Volume Management capabilities, long term storage, Native RAID Support + RAIDZ, silent self healing</td></tr>
-                <tr><td>ReiserFS</td><td>2009</td><td>will be removed from Linux Kernel in 2025 because date stop in 2038</td></tr>
-              </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Tmpfs - Procfs</a>
-            <div class="r-fit-text">
-              <p class="fragment fade-in">tmpfs (short for Temporary File System) is a temporary file storage paradigm implemented in many Unix-like operating systems. It is intended to appear as a mounted file system, but data is stored in volatile memory instead of a persistent storage device.</p>
-              <p class="fragment fade-in">The proc filesystem (procfs) is a special filesystem in Unix-like operating systems that presents information about processes and other system information in a hierarchical file-like structure, providing a more convenient and standardized method for dynamically accessing process data held in the kernel than traditional tracing methods or direct access to kernel memory. Typically, it is mapped to a mount point named /proc at boot time. The proc file system acts as an interface to internal data structures about running processes in the kernel. In Linux, it can also be used to obtain information about the kernel and to change certain kernel parameters at runtime</p>
-              <p class="fragment fade-in">You can use the <code>ps</code> command to access this data.</p>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Linux Volume Information</a>
-            <div class="r-fit-text">
-            <ul>
-              <li class="fragment fade-in">Linux volume are <strong>mounted</strong> in the file system.</li>
-              <li class="fragment fade-in">The main mount point is named /. This is the root mount point.</li>
-              <li class="fragment fade-in">In the same file system you can have many volume with different filesystem.</li>
-              <div class="fragment fade-in">
-              <li>Mount points are described in the the <strong>/etc/fstab</strong> file.</li>
-  <pre>
-$ cat /etc/fstab
-# /etc/fstab: static file system information.
-#
-# Use 'blkid' to print the universally unique identifier for a
-# device; this may be used with UUID= as a more robust way to name devices
-# that works even if disks are added and removed. See fstab(5).
-#
-# <file system> <mount point>   <type>  <options>       <dump>  <pass>
-# / was on /dev/nvme0n1p5 during installation
-UUID=2c2727a7-7b03-4c50-b4bf-8f1a5d26ecb0 /               ext4    errors=remount-ro 0       1
-# /boot/efi was on /dev/nvme0n1p1 during installation
-UUID=948D-8E86  /boot/efi       vfat    umask=0077      0       1
-# /home was on /dev/nvme0n1p6 during installation
-UUID=f1447f37-47d6-44d1-80d5-08df7a27c356 /home           ext4    defaults        0       2
-/swapfile                                 none            swap    sw              0       0
-  </pre>
-              </div>
-            </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Linux Volume example</a>
-
-            <div class="r-stack">
-              <img src="pages/linux_filesystem/mount.jpg"></img>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_filesystem/fs.html" target="_blank">Get Volume Information</a>
-            <div class="r-fit-text">
-            <p>The mount command:</p>
-  <pre>
-$ mount | grep -v snap
-  </pre>
-  <pre class="fragment fade-in">
-sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
-proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
-udev on /dev type devtmpfs (rw,nosuid,relatime,size=3866356k,nr_inodes=966589,mode=755,inode64)
-devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
-tmpfs on /run type tmpfs (rw,nosuid,nodev,noexec,relatime,size=785436k,mode=755,inode64)
-/dev/nvme0n1p5 on / type ext4 (rw,relatime,errors=remount-ro)
-securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
-tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,inode64)
-tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k,inode64)
-cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
-efivarfs on /sys/firmware/efi/efivars type efivarfs (rw,nosuid,nodev,noexec,relatime)
-bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
-systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=29,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=20382)
-mqueue on /dev/mqueue type mqueue (rw,nosuid,nodev,noexec,relatime)
-debugfs on /sys/kernel/debug type debugfs (rw,nosuid,nodev,noexec,relatime)
-tracefs on /sys/kernel/tracing type tracefs (rw,nosuid,nodev,noexec,relatime)
-fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
-configfs on /sys/kernel/config type configfs (rw,nosuid,nodev,noexec,relatime)
-none on /run/credentials/systemd-sysusers.service type ramfs (ro,nosuid,nodev,noexec,relatime,mode=700)
-tmpfs on /run/qemu type tmpfs (rw,nosuid,nodev,relatime,mode=755,inode64)
-/dev/nvme0n1p1 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
-/dev/nvme0n1p6 on /home type ext4 (rw,relatime)
-binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
-tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=785432k,nr_inodes=196358,mode=700,uid=1000,gid=1000,inode64)
-  </pre>
-            </div>
-          </section>
-        </section>
-
-				<section>
-				  <section>
-            <h2><a href="pages/linux_files/files.html" target="_blank">Linux file system entries</a></h2>
-          </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">File path</a>
-            <ul>
-              <li class="fragment fade-in">A file path is an easy way to retrieve inode content.</li>
-              <li class="fragment fade-in">A file path can refer to a directory, a link or a file.</li>
-              <li class="fragment fade-in">A file path can be absolute(starts by "/") or relative to the current directory.</li>
-            </ul>
-          </section>
-
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">File naming convention</a>
-            <ul>
-              <li class="fragment fade-in">The file extension are optional on Linux. It can be used to sort files or provide indication. You can have as many extensions as you want to. Example this file is totaly valid: mytest-0.0.1.tar.gz.deprecated.</li>
-              <li class="fragment fade-in">Files starting by a dot character are not displayed by the ls command. They can be displayed using -a option in the ls command.</li>
-            </ul>
-          </section>
-
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">File path - example</a>
-
-            <div class="r-fit-text">
-  <pre class="fragment fade-in">
-user@io:~/training$ mkdir directory
-  </pre>
-  <pre class="fragment fade-in">
-user@io:~/training$ touch file
-  </pre>
-  <pre class="fragment fade-in">
-user@io:~/training$ ln -s file symlink
-  </pre>
-  <pre class="fragment fade-in">
-user@io:~/training$ ln file hardlink
-  </pre>
-  <pre class="fragment fade-in">
-user@io:~/training$ ls -li
-total 4
-8532318 drwxrwxr-x 2 uidn4221 uidn4221 4096 mai   18 00:07 directory
-8532326 -rw-rw-r-- 2 uidn4221 uidn4221    0 mai   18 00:07 file
-8532326 -rw-rw-r-- 2 uidn4221 uidn4221    0 mai   18 00:07 hardlink
-8532149 lrwxrwxrwx 1 uidn4221 uidn4221    4 mai   18 00:07 symlink -> file
-  </pre>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">Manipulating file paths</a>
-            <div class="r-fit-text">
-              <ul>
-                <div class="fragment fade-in">
-                  <li>basename - strip directory and suffix from filenames.</li>
-<pre>
-        e---@pluton:/etc/systemd$ basename system/syslog.service 
-        syslog.service
-        e---@pluton:/etc/systemd$ basename system/syslog.service .service
-        syslog
-</pre>
-                </div>
-
-                <div class="fragment fade-in">
-                  <li>dirname - strip component from file name.</li>
-<pre>
-       dirname /usr/bin/
-              -> "/usr"
-</pre>
-                </div>
-
-                <div class="fragment fade-in">
-                  <li>realpath - print the resolved path.</li>
-<pre>
-~/dev/trainings/linux/example/subdir$ ls -l
-lrwxrwxrwx 1 ewae ewae 7 mai   19 01:28 symlink -> ../file
-
-~/dev/trainings/linux/example$ realpath subdir/symlink 
-/home/ewae/dev/trainings/linux/example/file
-
-~/dev/trainings/linux/example$ realpath -L subdir/symlink 
-/home/ewae/dev/trainings/linux/example/file
-
-~/dev/trainings/linux/example$ realpath -s subdir/symlink 
-/home/ewae/dev/trainings/linux/example/subdir/symlink
-
-~/dev/trainings/linux/example$ realpath --no-symlinks subdir/symlink 
-/home/ewae/dev/trainings/linux/example/subdir/symlink
-</pre>
-                </div>
-              </ul>
-              <p class="fragment fade-in">It exists a -z option to end the result with a \0 instead of new line.</p>
-            </div>
-				  </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">Special folders - Home</a>
-            <div class="r-fit-text">
-                <div>
-                  <p>The Home directory is noted <b>~</b></p>
-                  <p>It can be reached using the <b>cd</b> command without argument.</p>
-                  <p>It is strongly adviced to mount it with a dedicated mount point different than <b>/</b>. This way you ensure:</p>
-                  <ul>
-                    <li>to preserve your personal data in case of system update</li>
-                    <li>to have a dedicated storage for your personal data not to run out of space on System device.</li>
-                  </ul>
-                  <p>It is associated to your user in the <p>/etc/passwd</p> file. Example:
-<pre>
-user@miranda:~/dev$ cat /etc/passwd | grep -E "user|root"
-root:x:0:0:root:/root:/bin/bash
-user:x:1000:1000:user,,,:/home/user:/bin/bash
-snapd-range-524288-root:x:524288:524288::/nonexistent:/usr/bin/false
-</pre>
-                </div>
-				  </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">Special folders - . and ..</a>
-            <div class="r-fit-text">
-              <ul>
-                <li><b>..</b> is the parent folder.</li>
-                <li><b>.</b> is the current folder known as the current/working directory.</li>
-              </ul>
-                </div>
-				  </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">Environment variables</a>
-            <div class="r-fit-text">
-              <table>
-                <tr><th>variable</th><th>describe</th></tr>
-                <tr><td>HOME</td><td>User home folder.</td></tr>
-                <tr><td>PWD</td><td>Current/working directory</td></tr>
-                <tr><td>OLDPWD</td><td>Previous current/working directory</td></tr>
-              </table>
-              <p>You can display a variable value with: <code>echo $HOME</code> command.</p>
-      <pre>
-user@miranda:~/dev/gitlab$ echo {$HOME,$PWD,$OLDPWD}
-/home/user /home/user/dev/gitlab /tmp
-      </pre>
-            </div>
-				  </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">Navigate in the File System</a>
-            <div class="r-fit-text">
-              <div  class="fragment fade-in">
-                <p>You can change your current working directory using the cd command. "cd" means change directory.</p>
-                <table>
-                  <tr><td>cd /path</td><td>change directory to /path.</td></tr>
-                  <tr><td>cd path</td><td>change directory to $PWD/path.</td></tr>
-                  <tr><td>cd ..</td><td>change directory to the parent folder.</td></tr>
-                  <tr><td>cd</td><td>change directory to the HOME folder.</td></tr>
-                  <tr><td>cd -</td><td>change directory to the OLDPWD folder.</td></tr>
-                </table>
-              </div>
-              <div  class="fragment fade-in">
-                <p><b>pwd</b> command print name of current/working directory.</p>
-              </div>
-            </div>
-				  </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">List directory entries</a>
-            <div class="r-fit-text">
-              <div  class="fragment fade-in">
-                <p>You can list directory entries using the ls command.</p>
-                <table>
-                  <tr><th>command</th><th>describe</th></tr>
-                  <tr><td>ls /path</td><td>list the /path entries.</td></tr>
-                  <tr><td>ls</td><td>list the current working directory entries.</td></tr>
-                  <tr><td>ls -l</td><td>long listing format.</td></tr>
-                  <tr><td>ls -a or ls -A </td><td>list all files or almost all files(starting by .</td></tr>
-                  <tr><td>ls -i</td><td>display file associated inode</td></tr>
-                </table>
-              </div>
-            </div>
-				  </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">Get file information</a>
-            <div class="r-fit-text">
-              <div>
-                <p>You can get file information using the <b>file</b> command.</p>
-      <pre>
-  EXAMPLES
-             $ file file.c file /dev/{wd0a,hda}
-             file.c:   C program text
-             file:     ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV),
-                       dynamically linked (uses shared libs), stripped
-             /dev/wd0a: block special (0/0)
-             /dev/hda: block special (3/0)
-  
-             $ file -s /dev/wd0{b,d}
-             /dev/wd0b: data
-             /dev/wd0d: x86 boot sector
-  
-             $ file -s /dev/hda{,1,2,3,4,5,6,7,8,9,10}
-             /dev/hda:   x86 boot sector
-             /dev/hda1:  Linux/i386 ext2 filesystem
-             /dev/hda2:  x86 boot sector
-             /dev/hda3:  x86 boot sector, extended partition table
-             /dev/hda4:  Linux/i386 ext2 filesystem
-             /dev/hda5:  Linux/i386 swap file
-             /dev/hda6:  Linux/i386 swap file
-             /dev/hda7:  Linux/i386 swap file
-             /dev/hda8:  Linux/i386 swap file
-             /dev/hda9:  empty
-             /dev/hda10: empty
-  
-             $ file -i file.c file /dev/{wd0a,hda}
-             file.c:      text/x-c
-             file:        application/x-executable
-             /dev/hda:    application/x-not-regular-file
-             /dev/wd0a:   application/x-not-regular-file
-      </pre>
-              </div>
-            </div>
-				  </section>
-				  <section>
-            <a href="pages/linux_files/files.html" target="_blank">Get file or file system status</a>
-            <div class="r-fit-text">
-              <div>
-                <p>Display file or file system status. The stat command is very flexible and useful to get information or script. It provides options for the output format and offer to request specific fields easily.</p>
+        <p>Parses the tokens into simple and compound commands</p>
+        <ul class="r-fit-text">
+            <li class="fragment fade-in">A simple command is the kind of command encountered most often. It’s just a sequence of words separated by blanks, terminated by one of the shell’s control operators. The first word generally specifies a command to be executed, with the rest of the words being that command’s arguments. Control operators: <pre>newline, ‘||’, ‘&&’, ‘&’, ‘;’, ‘;;’, ‘;&’, ‘;;&’, ‘|’, ‘|&’, ‘(’, or ‘)’</pre></li>
+            <li class="fragment fade-in">Compound commands are the shell programming language constructs.<pre>until test-commands; do consequent-commands; done</pre></li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Compound commands quizz</a></h2>
         <pre>
-e@pluton:/etc/systemd$ stat system/syslog.service
-  File: system/syslog.service -> /lib/systemd/system/rsyslog.service
-  Size: 35              Blocks: 0          IO Block: 4096   symbolic link
-Device: 10305h/66309d   Inode: 656118      Links: 1
-Access: (0777/lrwxrwxrwx)  Uid: (    0/    root)   Gid: (    0/    root)
-Access: 2023-05-10 20:50:45.984885110 +0200
-Modify: 2022-02-05 21:03:25.738792760 +0100
-Change: 2022-02-05 21:03:25.738792760 +0100
- Birth: 2022-02-05 21:03:25.738792760 +0100
+            until [ -f toto ]; do echo 2; sleep 2; done &
+        </pre>
+        <ul>
+            <li class="fragment fade-in">What the command will do?</li>
+            <li class="fragment fade-in">How can I stop it?</li>
+        </ul>
+        <pre class="fragment fade-in">
+            until false; do echo 2 sleep 2; done
+        </pre>
+        <ul>
+            <li class="fragment fade-in">What the command will do?</li>
+            <li class="fragment fade-in">How to add the delay?</li>
+        </ul>
+        <pre class="fragment fade-in">
+            until false; do echo 2; sleep 2; done &
+        </pre>
+        <ul>
+            <li class="fragment fade-in">How to stop it?</li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Perform expansion</a></h2>
 
-e@pluton:/etc/systemd$ stat --terse --file-system system/syslog.service
-system/syslog.service bda89898e0a02526 255 ef53 4096 4096 7515358 1940756 1552660 1921360 1528297
-
-e@pluton:/etc/systemd$ stat -c "%a" system/syslog.service
-777
-
-e@pluton:/etc/systemd$ stat -c "%A" system/syslog.service
-lrwxrwxrwx
-
-e@pluton:/etc/systemd$ stat -c "%A %a" system/syslog.service
-lrwxrwxrwx 777
-
-e@pluton:/etc/systemd$ stat -c "%A %a %F" system/syslog.service
-lrwxrwxrwx 777 symbolic link
-
-e@pluton:/etc/systemd$ stat -c "%i %h %x" /usr/lib/systemd/system/rsyslog.service
-261829 1 2023-05-10 20:50:45.992885739 +0200
-      </pre>
-              </div>
-            </div>
-				  </section>
-        </section>
-				<section>
-				  <section>
-            <h2><a href="pages/linux_fhs/fhs.html" target="_blank">Linux Filesystem Herarchy Standard</a></h2>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">What is the FHS?</a>
-            <p>The Filesystem Hierarchy Standard (FHS) is a reference describing the conventions used for the layout of a UNIX system. It has been made popular by its use in Linux distributions, but it is used by other UNIX variants as well.</p> 
-            <p class="fragment fade-in">It is maintained by the Linux Foundation.</p>
-            <p class="fragment fade-in">The latest version is 3.0, released on 3 June 2015.</p>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The root folder</a>
-            <div class="r-fit-text">
-              <p>The <b>root</b> folder is the main system storage.</p>
-              <div class="fragment fade-in">
-                <ul>
-                  <li class="fragment fade-in">It is the "/" mount point.</li>
-                  <li class="fragment fade-in">It contains all data not associated to another mount point.</li>
+        <p>Performs the various shell expansions, breaking the expanded tokens into lists of filenames and commands and arguments.</p>
+        <ul>
+            <li class="fragment fade-in">shell expansions</li>
+            <li class="fragment fade-in">filename expansions</li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Shell expansion</a></h2>
+        <ul class="r-fit-text">
+            <li class="fragment fade-in">Brace expansion is a mechanism by which arbitrary strings may be generated.<pre>echo a{a,b,c}e</pre></li>
+            <li class="fragment fade-in">Tilde expansion if a word begins with an unquoted tilde character<pre>echo ~ ~id</pre></li>
+            <li class="fragment fade-in">The ‘$’ character introduces:</li>
+        </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Parameter expansion</a></h2>
+            <div style="width:100%; font-size:x-large">
+            <p>A parameter expansion $var or ${var}</p>
+                <ul style="width:100%">
+                    <li class="fragment fade-in">you can display a value: <pre>unset val; val="toto"; echo $val</pre></li>
+                    <li class="fragment fade-in">you can return a default value: <pre>unset val; echo ${val:-"default"}; echo $val</pre></li>
+                    <li class="fragment fade-in">you can return a default value: <pre>unset val; echo ${val:="default"}; echo $val</pre></li>
+                    <li class="fragment fade-in">you can select a substring: <pre>unset val; val="toto"; echo ${val:1:-1}</pre></li>
+                    <li class="fragment fade-in">you can remove a substring at the beginning: <pre>unset val; val="toto"; echo ${val#?}</pre></li>
+                    <li class="fragment fade-in">you can remove a substring at the end: <pre>unset val; val="toto 20M"; echo "${val%20M}"</pre></li>
                 </ul>
-              </div>
             </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The home folders</a>
-            <div class="r-fit-text">
-              <p>The <b>home folders</b> are here to store user data.</p>
-              <table class="fragment fade-in folders">
-                <tr><td><b>/root</b></td><td>Root user home folder.</td></tr>
-                <tr><td><b>/home</b></td><td>Contains home folder for users. Not a rule but often.</td></tr>
-              </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The global binaries folder</a>
-            <div class="r-fit-text">
-              <p>The single-user mode folder define commands for all users.</p>
-              <table class="fragment fade-in folders">
-                <tr><td><b>/bin</b></td><td>single-user mode binary folder. It needs to be available to bring up or repair the system for all users.</td></tr>
-                <tr><td><b>/sbin</b></td><td>single-user mode essential binary folder.</td></tr>
-              </table>
-              <ul style="margin-top: 20px">
-                <li class="fragment fade-in">You can use the <b>which</b> command to know what command is executed.</li>
-                <li class="fragment fade-in">Alternate format essential libraries. These are typically used on systems that support more than one executable code format, such as systems supporting 32-bit and 64-bit versions of an instruction set. Such directories are optional.</li>
-              </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The global libraries folder</a>
-            <div class="r-fit-text">
-              <table class="fragment fade-in folders">
-                <tr><td><b>/lib</b></td><td>libraries essential for the binaries in /bin and /sbin.</td></tr>
-                <tr><td><b><code>/lib(qualifier)</code></b></td><td>libraries essential for the qualified architecture.</td></tr>
-              </table>
-              <ul style="margin-top: 20px">
-                <li class="fragment fade-in">those folders are referenced by default by ld.so(man ld.so)</li>
-                <li class="fragment fade-in">to see the shared objects used by a binary you can use the ldd command</li>
-                <li class="fragment fade-in">you can use the LD_LIBRARY_PATH env variable to append shared object folders. The order is important.</li>
-              </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The Boot folder</a>
-            <div class="r-fit-text">
-              <table class="fragment fade-in folders">
-                <tr><td><b>/boot</b></td><td>Boot folder containing kernels to load....</td></tr>
-                <tr><td><b>/boot/grub</b></td><td>Grub folder containing Grub system and boot configurations</td></tr>
-                <tr><td><b>/boot/efi</b></td><td>Separate FAT partition for the EFI(Extensible Firmware Interface) system partition.</td></tr>
-              </table>
-              <ul style="margin-top: 20px">
-                <li class="fragment fade-in">Corrupting this patition will prevent system to reboot.</li>
-                <li class="fragment fade-in">The /boot/grub/grub.cfg allow to update the boot configuration.</li>
-              </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The devices folder</a>
-            <div class="r-fit-text">
-              <table class="fragment fade-in folders">
-                <tr><td><b>/dev</b></td><td>Device files(physical and virtual).</td></tr>
-              </table>
-              <ul style="margin-top: 20px">
-                <li class="fragment fade-in">Devices can be characters(ttys...), block(hard drives...), pseudo devices.</li>
-                <li class="fragment fade-in">You can get informations using the udevadm command as: <code>udevadm info /dev/mem</code>.</li>
-                <li class="fragment fade-in">Example using a character device: <code>tty</code>, /dev/urandom(<code>head -c 2 /dev/urandom | hexdump -C</code>).</li>
-                <li class="fragment fade-in">Main names:
-                  <ul>
-                    <li><code>/dev/tty, /dev/pts, /dev/ttyS</code>.</li>
-                    <li><code>/dev/null</code>.</li>
-                    <li><code>/dev/stdout, /dev/stdin, /dev/stderr</code>.</li>
-                    <li><code>/dev/urandom</code>.</li>
-                    <li><code>/dev/loop</code>.</li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The kernel folder</a>
-            <div class="r-fit-text">
-              <table class="fragment fade-in folders">
-                <tr><td><b>/proc</b></td><td>Files that document the kernel status.</td></tr>
-              </table>
-              <ul style="margin-top: 20px">
-                <li class="fragment fade-in">Files are mount on virtual file system.</li>
-                <li class="fragment fade-in">File content is generated on demand. And will be always different.</li>
-                <li class="fragment fade-in">commands as memusage, ps, pstree, pgrep, top, uptime are proposed to navigate in the content.</li>
-                <li class="fragment fade-in">You can change kernel modules behavior edit files: <code>echo 1 > /proc/sys/net/ipv4/ip_forward</code></li>
-                <li class="fragment fade-in">Main names:
-                  <ul>
-                    <li><code>/proc/cpuinfo, /proc/meminfo</code>.</li>
-                    <li><code>/proc/filesystems, /proc/partitions, /proc/diskstats</code>.</li>
-                    <li><code>/proc/version, /proc/uptime</code>.</li>
-                    <li><code>/proc/devices, /proc/modules</code>.</li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The sysfs</a>
-            <div class="r-fit-text">
-              <table class="fragment fade-in folders">
-                <tr><td><b>/sys</b></td><td>Interface to the kernel settings.</td></tr>
-              </table>
-              <ul style="margin-top: 20px">
-                <li class="fragment fade-in">export kernel objects</li>
-                <li class="fragment fade-in">doc is provided here: man 5 sysfs</li>
-              </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The configuration folders</a>
-            <div class="r-fit-text">
-              <table class="fragment fade-in folders">
-                <tr><td><b>/etc</b></td><td>configuration files for daemons, users, certificates...</td></tr>
-                <tr><td><b>/etc/opt</b></td><td>configuration files for /opt applications</td></tr>
-              </table>
-              <ul style="margin-top: 20px">
-                <li class="fragment fade-in">There has been controversy over the meaning of the name itself. In early versions of the UNIX Implementation Document from Bell labs, /etc is referred to as the etcetera directory, as this directory historically held everything that did not belong elsewhere (however, the FHS restricts /etc to static configuration files and may not contain binaries). Since the publication of early documentation, the directory name has been re-explained in various ways. Recent interpretations include backronyms such as "Editable Text Configuration" or "Extended Tool Chest".</li>
-                <li class="fragment fade-in">Main names:
-                  <ul>
-                    <li><code>/etc/passwd, /etc/groups</code>.</li>
-                    <li><code>/etc/ld.so.conf</code>.</li>
-                    <li><code>/etc/crontab</code>.</li>
-                    <li><code>/etc/host*, /etc/resolv.conf</code>.</li>
-                    <li>...</li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The temporary folders</a>
-            <div class="r-fit-text">
-              <table class="fragment fade-in folders">
-                <tr><td><b>/tmp</b></td><td>Directory for temporary files. Often not preserved between system reboots and may be severely size-restricted because of special rights.(ls -lh)</td></tr>
-              </table>
-              <table class="fragment fade-in folders">
-                <tr><td><b>/run</b></td><td>Run-time variable data: Information about the running system since last boot, e.g., currently logged-in users and running daemons. Files under this directory must be either removed or truncated at the beginning of the boot process, but this is not necessary on systems that provide this directory as a temporary filesystem (tmpfs).</td></tr>
-              </table>
-              <table class="fragment fade-in folders">
-                <tr><td><b>/var</b></td><td>Variable files: files whose content is expected to continually change during normal operation of the system, such as logs, spool files, and temporary e-mail files.</td></tr>
-              </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The /var folders</a>
-            <div class="r-fit-text">
-              <table class="fragment">
-                <tr><td><b>/var/cache</b></td><td>Application cache data. Such data are locally generated as a result of time-consuming I/O or calculation. The application must be able to regenerate or restore the data. The cached files can be deleted without loss of data.</td></tr>
-                <tr><td><b>/var/lib</b></td><td>State information. Persistent data modified by programs as they run (e.g., databases, packaging system metadata, etc.).</td></tr>
-                <tr><td><b>/var/lock</b></td><td>Lock files. Files keeping track of resources currently in use.</td></tr>
-                <tr><td><b>/var/log</b></td><td>Log files.</td></tr>
-                <tr><td><b>/var/run</b></td><td>Run-time variable data. This directory contains system information data describing the system since it was booted.
-<BR/>
-In FHS 3.0, /var/run is replaced by /run; a system should either continue to provide a /var/run directory or provide a symbolic link from /var/run to /run for backwards compatibility. </td></tr>
-                <tr><td><b>/var/tmp</b></td><td>Temporary files to be preserved between reboots.</td></tr>
-              </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The mount folders</a>
-            <div class="r-fit-text">
-              <table class="fragment">
-                <tr><td><b>/media</b></td><td>Mount points for removable media such as CD-ROMs (appeared in FHS-2.3 in 2004).</td></tr>
-                <tr><td><b>/mnt</b></td><td>Temporarily mounted filesystems.</td></tr>
-              </table>
-            </div>
-          </section>
-				  <section>
-            <a href="pages/linux_fhs/fhs.html" target="_blank">The secondary fhs</a>
-            <div class="r-fit-text">
-              <table class="fragment">
-                <tr><td><b>/usr</b></td><td>Secondary hierarchy for read-only user data; contains the majority of user utilities and applications. Should be shareable and read-only.</td></tr>
-              </table>
-            </div>
-          </section>
-        </section>
-				<section>
-				  <section>
-            Linux Kernel 
-          </section>
-				  <section>
-            <a href="pages/kernel/overview.html" target="_blank">Overview</a>
-            <!--p class="fragment fade-in">To summarize: an Operating System provides a Kernel, Services and applications to interact with the hardware.</p-->
-          </section>
-				  <section>
-            <a href="pages/kernel/devices.html" target="_blank">Devices</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/kernel/services.html" target="_blank">Scheduler</a>
-            man 7 sched
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/kernel/services.html" target="_blank">System calls</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/kernel/services.html" target="_blank">Interacting with the kernel</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-        </section>
+        <pre>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Command expansion</a></h2>
+            <p>A command expansion:</p>
+            <ul>
+                <li class="fragment fade-in">you can affect a command result value: <pre>unset val; val="$(date +"%M%H%S")"; echo $val</pre></li>
+                <li class="fragment fade-in">you can affect a command result value: <pre>unset val; val=`date +"%M%H%S"`; echo $val</pre></li>
+                <li class="fragment fade-in">you execute a string as: <pre>
+echo "ls -l" > toto
+$(cat toto)</pre></li>
+            </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Arithmetic expansion</a></h2>
+            <p>A arithmetic expansion $(( )):</p>
+            <pre>
+                uidn4221@io:~/dev/trainings-linux$ echo "13 / 4 = $(( 13 /4 )) reste $(( 13 % 4 ))"
+                13 / 4 = 3 reste 1
+            </pre>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Filename expansion</a></h2>
+            <p>After word splitting, unless the -f option has been set (see The Set Builtin), Bash scans each word for the characters ‘*’, ‘?’, and ‘[’. If one of these characters appears, and is not quoted,
+            then the word is regarded as a pattern, and replaced with an alphabetically sorted list of filenames matching the pattern</p>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Filename expansion - Quizz</a></h2>
+            <pre>
+uidn4221@io:~/dev/trainings-linux$ touch tot{o,e,i}{a,e,i,o,u,y}
+uidn4221@io:~/dev/trainings-linux$ ls tot*
+tote  totea  totee  totei  toteo  toteu  totey  toti  totia  totie  totii  totio  totiu  totiy  toto  totoa  totoe  totoi  totoo  totou  totoy  totu
+            </pre>
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">how to get all toti files
+                <ul>
+                    <li class="fragment fade-in"><pre>ls toti*</pre></li>
+                </ul></li>
+                <li class="fragment fade-in">how to get all files containing toti and tote
+                <ul>
+                    <li class="fragment fade-in"><pre>ls tot[i,e]*</pre></li>
+                </ul></li>
+                <li class="fragment fade-in">how to get all files finishing by "e" vowel with 5 letters
+                <ul>
+                    <li class="fragment fade-in"><pre>ls tot?e</pre></li>
+                </ul></li>
+            </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection</a></h2>
+            <p>Before  a command is executed, its input and output may be redirected using a special notation interpreted by the shell.  Redirection allows com‐
+                mands' file handles to be duplicated, opened, closed, made to refer to different files, and can change the files the command  reads from and
+                writes  to.  Redirection may also be used to modify file handles in the current shell execution environment. The following redirection operators
+                may precede or appear anywhere within a simple command or may follow a command.  Redirections are processed in the order they appear,  from  left
+                to right.</p>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - default behavior</a></h2>
+            By default a command:
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">Get its input from /dev/stdin (0)</li>
+                <li class="fragment fade-in">Writes its output to /dev/stdout (1)</li>
+                <li class="fragment fade-in">Writes its error to /dev/stderr (2)</li>
+            </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - Good to know</a></h2>
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">When you write a program you must only write to stdout the command result
+                    and log to /dev/stderr. That allow you to use the program in other scripts. (ex: uname)</li>
+                <li class="fragment fade-in">Most of terminal display both stdout and stderr.</li>
+                <li class="fragment fade-in">If the redirector start by '>' this refer to the standard output.</li>
+            </ul>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - </a></h2>
+        <div class="r-fit-text" style="width: 100%;">
+            <p>Redirections are processed in the order they appear, from  left to right.</p>
 
-				<section>
-				  <section>
-             User Space
-          </section>
-				  <section>
-            <a href="pages/user_space/overview.html" target="_blank">Overview</a>
-            <!--p class="fragment fade-in">To summarize: an Operating System provides a Kernel, Services and applications to interact with the hardware.</p-->
-          </section>
-				  <section>
-            <a href="pages/user_space/system_calls.html" target="_blank">System Calls</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/user_space/applications.html" target="_blank">Applications</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/user_space/package_manager.html" target="_blank">Package Manager</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/kernel/services.html" target="_blank">Documentations</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-        </section>
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">the command<pre>ls > dirlist 2>&1</pre>directs both standard output and standard error to the file dirlist, while the command</li>
+                <li class="fragment fade-in">the command<pre>ls 2>&1 > dirlist</pre>directs only the standard output to file dirlist, because the standard error was duplicated from the standard output before the  standard  output 
+                    was redirected to dirlist.</li>
+                <li class="fragment fade-in">the command<pre>&>word</pre> and <pre>>&word</pre> Of the two forms, the first is preferred.  This is semantically equivalent to <pre> >word 2>&1</pre></li>
+                <li class="fragment fade-in">The format for appending standard output and standard error is: <pre>&>>word</pre> This is semantically equivalent to <pre>>>word 2>&1</pre></li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Redirection - Will it be sent? :)</a></h2>
+        <div class="r-fit-text" style="width: 100%;">
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">We open a udp port<pre>nc -klu localhost 9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto >/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto2 1>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto3 2>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto4 >&2 2>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto5 1>&2 2>/dev/udp/localhost/9000</pre></li>
+                <li class="fragment fade-in"><pre>echo toto6 2>/dev/udp/localhost/9000 1>&2</pre></li>
+                <li class="fragment fade-in"><pre>echo toto7 2>/dev/udp/localhost/9000 >&2</pre></li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Execute command</a></h2>
+        <div class="r-fit-text" style="width: 100%;">
+            <ul  class="r-fit-text" style="width:100%">
+                <li class="fragment fade-in">It locate the command to execute and start it. The command is placed as argument as $0.</li>
+                <li class="fragment fade-in">It set the local environment, traps, umask creation...</li>
+                <li class="fragment fade-in">After running it returns an exit status.</li>
+            </ul>
 
-				<section>
-				  <section>
-             Services
-          </section>
-				  <section>
-            <a href="pages/systemd/overview.html" target="_blank">Overview</a>
-            <!--p class="fragment fade-in">To summarize: an Operating System provides a Kernel, Services and applications to interact with the hardware.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/init.d" target="_blank">init.d</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/systemd" target="_blank">systemd</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-        </section>
+            <p class="fragment fade-in">To check a program exit status. You can check the value of $? parameter. 127 means not found, 126 means found but not executable.
+            0 means success and other values are errors.</p>
+            <pre class="fragment fade-in">
+uidn4221@io:~/dev/trainings-linux$ ls toto*
+toto  totoa  totoe  totoi  totoo  totou  totoy
+uidn4221@io:~/dev/trainings-linux$ echo $?
+0
+            </pre>
 
-				<section>
-				  <section>
-             User Management
-          </section>
-				  <section>
-            <a href="pages/systemd/overview.html" target="_blank">Overview</a>
-            <!--p class="fragment fade-in">To summarize: an Operating System provides a Kernel, Services and applications to interact with the hardware.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/init.d" target="_blank">user</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/systemd" target="_blank">group</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/systemd" target="_blank">File rights</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-        </section>
+        </div>
+    </section>
+</section>
 
-				<section>
-				  <section>
-             Command Management
-          </section>
-				  <section>
-            <a href="pages/systemd/overview.html" target="_blank">Overview</a>
-            <!--p class="fragment fade-in">To summarize: an Operating System provides a Kernel, Services and applications to interact with the hardware.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/init.d" target="_blank">PID...</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/systemd" target="_blank">Get information</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-        </section>
+<!--Best Practices-->
+<section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Best Practices</a></h2>
+    </section>
+	<section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Shell-Operation" target="_blank">Start with an explicit Shebang</a></h2>
 
-				<section>
-				  <section>
-             Command line interpreters
-          </section>
-				  <section>
-            <a href="pages/systemd/overview.html" target="_blank">Overview</a>
-            <!--p class="fragment fade-in">To summarize: an Operating System provides a Kernel, Services and applications to interact with the hardware.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/init.d" target="_blank">Variable environment</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/systemd" target="_blank">Token</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-				  <section>
-            <a href="pages/filesystem/systemd" target="_blank">Basic syntax</a>
-            <!--p class="fragment fade-in">To summarize: Linux is an Unix-Like Operating System where all is a given as a file.</p-->
-          </section>
-        </section>
-			</div>
-		</div>
+        <p>The shebang specify the interpreter you want to use to interprete lines.</p>
+        <pre>
+            #!/bin/bash
+        </pre>
+        <p>Note it exists a lot of interpreters. It could be anything that is able to interprete the lines in the file.</p>
+    </section>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script src="plugin/zoom/zoom.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Use set -euo pipefail</a></h2>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
-			});
-		</script>
-	</body>
+        <div class="r-fit-text" style="width: 100%;">
+            <ul class="r-fit-text">
+                <li class="fragment fade-in">-e: when this option is on, if a simple command fails for any reason, the shell shall immediately exit, unless the simple command is followed by an && or ||, or is the command immediately following an if or while command, or the command immediately following a pipeline, a list, or a compound command.</li>
+                <li class="fragment fade-in">-u: this will cause the program to automatically exit when an undefined variable is referenced.</li>
+                <li class="fragment fade-in">-o pipefail: the return value of a pipeline is the status of the last command to exit with a non-zero status, or zero if no command exited with a non-zero status</li>
+            </ul>
+            <div class="fragment fade-in" style="width:100%">
+                <pre>
+#!/bin/bash
+set -euo pipefail
+
+echo toto
+false
+echo toto2
+                </pre>
+            </div>
+            <div class="fragment fade-in" style="width:100%">
+                <span style="text-align:left">will produce:</span>
+            </div>
+            <div class="fragment fade-in" style="width:100%">
+                <pre>
+uidn4221@io:~/dev/trainings-linux$ ./bash/false.sh || echo $?
+toto
+1
+              </pre>
+           </div>
+        </div>
+    </section>
+    <section>
+        <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Best practices</a></h2>
+
+        <div class="r-fit-text" style="width: 100%;">
+            <ul class="r-fit-text">
+                <li class="fragment fade-in">Describe each command in a dedicated method</li>
+                <li class="fragment fade-in">You can use shellcheck <pre>sudo apt install shellcheck</pre></li>
+                <li class="fragment fade-in">Initiate current working directory to work with no matter you launch the script</li>
+                <li class="fragment fade-in">Document command line arguments to know what it is expected to do</li>
+            </ul>
+        </div>
+    </section>
+</section>
+
+<!--Pokemon trainer-->
+<section>
+	<section>
+    <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Pokemon trainer</a></h2>
+  </section>
+</section>
+
+<!--Conclusion-->
+<section>
+	<section>
+    <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Conclusion</a></h2>
+  </section>
+	<section>
+    <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Conclusion - Why Bash?</a></h2>
+    <div class="r-fit-text" style="width: 100%;">
+        <ul class="r-fit-text">
+            <li class="fragment fade-in">Bash is reliable, offers to do quickly redundant things</li>
+            <li class="fragment fade-in">Knowing bash is usefull because it used in most of GNU Operating Systems.</li>
+        </ul>
+    </div>
+  </section>
+	<section>
+    <h2><a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html" target="_blank">Conclusion - Attention</a></h2>
+    <div class="r-fit-text" style="width: 100%;">
+        <ul class="r-fit-text">
+            <li class="fragment fade-in">Bash complexity increase quickly</li>
+            <li class="fragment fade-in">Reserved to small problematics</li>
+            <li class="fragment fade-in">Programming hard to maintain compared to other languages</li>
+        </ul>
+    </div>
+  </section>
+</section>
+</div>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script src="plugin/zoom/zoom.js"></script>
+<script>
+	// More info about initialization & config:
+	// - https://revealjs.com/initialization/
+	// - https://revealjs.com/config/
+	Reveal.initialize({
+		hash: true,
+
+		// Learn about plugins: https://revealjs.com/plugins/
+		plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+	});
+</script>
+</body>
+
 </html>
