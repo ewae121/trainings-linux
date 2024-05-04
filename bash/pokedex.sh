@@ -1,15 +1,19 @@
 #!/bin/bash
+
 set -euo pipefail
 
 REAL_PATH=$(realpath "$0")
 W=$(dirname "${REAL_PATH}")
 
-source utils.sh
-
-POKEMONS_FOLDER="${W}"/new_pokemons
-
+POKEMONS_FOLDER="${W}"/pokedex_demo
 POKEMON_LIST_FILE="${POKEMONS_FOLDER}"/pokemons.json
+
 POKEMON_PROPERTIES_FILE_SUFFIX="_properties.json"
+
+send_activity_message (){
+  message=$1
+  echo "$message" > /dev/udp/localhost/9000
+}
 
 init_pokemons_folder (){
   if [[ -d "${POKEMONS_FOLDER}" ]]; then
@@ -17,7 +21,7 @@ init_pokemons_folder (){
     return
   fi
 
-  echo "Create Pokemons folder"
+  send_activity_message "Create Pokemons folder"
   mkdir -p "${POKEMONS_FOLDER}"
 }
 
@@ -97,13 +101,13 @@ init_pokemons_folder
 # Parse arguments
 while [[ $# -gt 0 ]]; do
   case $1 in
-    -l|--list)
+    -a|--download-pokemon-list)
       get_pokemon_list
-      download_pokemon_list
+      download_pokemon_list 
       exit 0
       ;;
     -*|--*|*)
-      echo "Unknown option $1;"
+      echo "Unknown option $1"
       exit 1
       ;;
   esac
